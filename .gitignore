@@ -4,6 +4,8 @@ bridges.pas
 torconfigs/
 geoip
 geoip6
+test_bin
+test_bin_debug
 
 # Lazarus compiler-generated binaries (safe to delete)
 *.exe
