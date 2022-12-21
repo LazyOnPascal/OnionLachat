@@ -6,6 +6,9 @@ geoip
 geoip6
 test_bin
 test_bin_debug
+gui/bin/data/*
+database.chat
+lazonionchat_linux*
 
 # Lazarus compiler-generated binaries (safe to delete)
 *.exe
