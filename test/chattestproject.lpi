@@ -10,12 +10,12 @@
       <Icon Value="0"/>
     </General>
     <BuildModes>
-      <Item Name="Debug" Default="True"/>
-      <Item Name="Release">
+      <Item Name="Debug_linux" Default="True"/>
+      <Item Name="Release_linux">
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="chattestproject"/>
+            <Filename Value="test_bin"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -85,7 +85,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="chattestproject"/>
+      <Filename Value="test_bin_debug"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

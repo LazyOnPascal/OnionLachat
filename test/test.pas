@@ -305,7 +305,7 @@ begin
     WriteLn('');
     WriteLn('User1 tor restart');
     user1.Tor.Restart;
-    Sleep(1000);
+    Sleep(2000);
     InitTor(user1);
 
     AssertFalse('User2 after disconnect still report Connected',
