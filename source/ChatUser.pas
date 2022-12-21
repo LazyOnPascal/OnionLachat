@@ -56,14 +56,12 @@ implementation
 
 uses
   Forms, ChatProtocol, ChatContact, ChatFunctions,
-  Sockets, ChatMessageList;
+  Sockets;
 
 { TChatUser }
 
-constructor TChatUser.Create(aName, aTorBinDir,
-  aTorConfigDir: string;
-  aServerPort, aSocksPort: word; aKeySize: TLbAsymKeySize;
-  aBridges: TTorBridges);
+constructor TChatUser.Create(aName, aTorBinDir, aTorConfigDir: string;
+  aServerPort, aSocksPort: word; aKeySize: TLbAsymKeySize; aBridges: TTorBridges);
 begin
   inherited Create;
   FPause := False;
@@ -75,8 +73,8 @@ begin
     FContacts := TChatContactList.Create();
     FUserKey := TLbRSA.Create(nil, self.FName, aKeySize);
 
-    FTor := TTorLauncher.Create(aTorBinDir, aTorConfigDir,
-      aServerPort, aSocksPort, aBridges);
+    FTor := TTorLauncher.Create(aTorBinDir, aTorConfigDir, aServerPort,
+      aSocksPort, aBridges);
 
     FConstructorError := False;
   except
@@ -86,8 +84,7 @@ begin
     end
     else
     begin
-      ProgramLogError('Unknown error in ' + self.FName +
-        ' constructor');
+      ProgramLogError('Unknown error in ' + self.FName + ' constructor');
     end;
   end;
 
@@ -123,6 +120,8 @@ end;
 procedure TChatUser.PackToStream(aStream: TStream);
 begin
 
+  { #todo -cBUG : when save the database absolute file paths are written.
+                  no possibility of transferring program from pc to pc }
   aStream.WriteQWord(FILE_DATA_BASE_VER_1);
   aStream.WriteAnsiString(FName);
   FUserKey.PackToStream(aStream);

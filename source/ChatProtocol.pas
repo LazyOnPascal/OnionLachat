@@ -100,7 +100,7 @@ implementation
 
 uses LbAsym, Sockets, ChatFunctions,
   LbRandom, DCPrijndael, DCPsha256,
-  BaseUnix, ChatUser;
+  BaseUnix, ChatUser, DCPblowfish;
 
 function recvTimeOut(s: cint; buf: pointer; len: size_t;
   flags: cint; aTimeOut: integer; thread : TChatConnection): ssize_t;
@@ -741,6 +741,8 @@ var
   Cipher: TDCP_rijndael;
 begin
   Cipher := TDCP_rijndael.Create(nil);
+  if Cipher.SelfTest then
+     WriteLn('Yes');
   try
     aSource.Position := 0;
     aDest.Position := 0;
