@@ -1,0 +1,143 @@
+object fBridge: TfBridge
+  Left = 859
+  Height = 1063
+  Top = 154
+  Width = 1035
+  BorderStyle = bsDialog
+  Caption = 'О мостах'
+  ClientHeight = 1063
+  ClientWidth = 1035
+  DesignTimePPI = 192
+  ShowInTaskBar = stNever
+  LCLVersion = '2.2.0.2'
+  object lInfo: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 50
+    Height = 403
+    Top = 50
+    Width = 935
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 50
+    BorderSpacing.Top = 50
+    BorderSpacing.Right = 50
+    Caption = 'Мосты - адреса точек входа в сеть Tor, они нужны если вход напрямую цензурируется. Каждый мост - это длинная строка, вставте эту строку в поле программы, один мост в одно поле. Можно не заполнять все три.'#10'Получить мосты можно по адресу bridges.torproject.org, но этот сайт тоже может быть под цензурой. '#10'Второй способ отправить на адрес электронной почты bridges@torproject.org письмо с вашего почтового ящика (только от провайдеров Gmail или Riseup), тема письма должна быть пустой, а само письмо должно содержать только фразу "get transport obfs4" без ковычек. В ответном письме придут адреса мостов, скопируйте их в это приложение.'#10#10'Мосты могут не заработать с первого раза.'#10'Использовать адреса полученные не от torproject.org опасно! '
+    ParentBidiMode = False
+    WordWrap = True
+  end
+  object lSite: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = lInfo
+    AnchorSideTop.Side = asrBottom
+    Cursor = crHandPoint
+    Left = 50
+    Height = 31
+    Top = 503
+    Width = 334
+    BorderSpacing.Left = 50
+    BorderSpacing.Top = 50
+    Caption = 'Сайт bridges.torproject.org'
+    Font.Color = clBlue
+    ParentFont = False
+    OnClick = lSiteClick
+  end
+  object gbGet: TGroupBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = lMail
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Side = asrBottom
+    Left = 50
+    Height = 233
+    Top = 625
+    Width = 935
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Left = 50
+    BorderSpacing.Top = 30
+    BorderSpacing.Right = 50
+    BorderSpacing.Bottom = 150
+    Caption = 'Варианты запросов на почту (один за раз)'
+    ClientHeight = 201
+    ClientWidth = 933
+    TabOrder = 0
+    object lobfs4: TLabel
+      AnchorSideLeft.Control = gbGet
+      AnchorSideTop.Control = gbGet
+      Cursor = crHandPoint
+      Left = 30
+      Height = 31
+      Top = 30
+      Width = 237
+      BorderSpacing.Left = 30
+      BorderSpacing.Top = 30
+      Caption = 'get transport obfs4'
+      Font.Color = clBlue
+      ParentFont = False
+      OnClick = lobfs4Click
+    end
+    object lip6: TLabel
+      AnchorSideLeft.Control = gbGet
+      AnchorSideTop.Control = lobfs4
+      AnchorSideTop.Side = asrBottom
+      Cursor = crHandPoint
+      Left = 30
+      Height = 31
+      Top = 81
+      Width = 97
+      BorderSpacing.Left = 30
+      BorderSpacing.Top = 20
+      Caption = 'get ipv6'
+      Font.Color = clBlue
+      ParentFont = False
+      OnClick = lip6Click
+    end
+    object lbr: TLabel
+      AnchorSideLeft.Control = gbGet
+      AnchorSideTop.Control = lip6
+      AnchorSideTop.Side = asrBottom
+      Cursor = crHandPoint
+      Left = 30
+      Height = 31
+      Top = 132
+      Width = 138
+      BorderSpacing.Left = 30
+      BorderSpacing.Top = 20
+      Caption = 'get bridges'
+      Font.Color = clBlue
+      ParentFont = False
+      OnClick = lbrClick
+    end
+  end
+  object lMail: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = lSite
+    AnchorSideTop.Side = asrBottom
+    Cursor = crHandPoint
+    Left = 50
+    Height = 31
+    Top = 564
+    Width = 368
+    BorderSpacing.Left = 50
+    BorderSpacing.Top = 30
+    Caption = 'Почта bridges@torproject.org'
+    Font.Color = clBlue
+    ParentFont = False
+    OnClick = lMailClick
+  end
+  object lInfo2: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 216
+    Height = 31
+    Top = 982
+    Width = 603
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 50
+    Caption = 'Синяя надпись будет скопирована при нажатии'
+  end
+end

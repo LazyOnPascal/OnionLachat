@@ -1,0 +1,252 @@
+object fNewUser: TfNewUser
+  Left = 611
+  Height = 747
+  Top = 314
+  Width = 1293
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsDialog
+  Caption = 'Новый пользователь'
+  ClientHeight = 747
+  ClientWidth = 1293
+  DesignTimePPI = 192
+  Position = poDesktopCenter
+  LCLVersion = '2.2.4.0'
+  object bCreate: TButton
+    Left = 1093
+    Height = 50
+    Top = 512
+    Width = 150
+    Caption = 'Создать'
+    OnClick = bCreateClick
+    TabOrder = 0
+  end
+  object gbBridge: TGroupBox
+    Left = 584
+    Height = 264
+    Top = 216
+    Width = 653
+    Caption = 'Мосты TOR (если проблемы с запуском)'
+    ClientHeight = 215
+    ClientWidth = 649
+    TabOrder = 1
+    object eBridge1: TEdit
+      Left = 24
+      Height = 51
+      Top = 56
+      Width = 595
+      TabOrder = 0
+    end
+    object eBridge2: TEdit
+      Left = 24
+      Height = 51
+      Top = 112
+      Width = 595
+      TabOrder = 1
+    end
+    object eBridge3: TEdit
+      Left = 24
+      Height = 51
+      Top = 168
+      Width = 595
+      TabOrder = 2
+    end
+    object lBridgeHelp: TLabel
+      Cursor = crHandPoint
+      Left = 24
+      Height = 37
+      Top = 8
+      Width = 281
+      Caption = 'Что такое и где брать?'
+      Font.Color = clBlue
+      ParentColor = False
+      ParentFont = False
+      OnClick = lBridgeHelpClick
+    end
+  end
+  object fbExtendet: TGroupBox
+    Left = 24
+    Height = 288
+    Top = 216
+    Width = 504
+    Caption = 'Технические настройки'
+    ClientHeight = 239
+    ClientWidth = 500
+    TabOrder = 2
+    object lName1: TLabel
+      Left = 24
+      Height = 37
+      Top = 16
+      Width = 136
+      Caption = 'Порт хоста'
+      ParentColor = False
+    end
+    object eHostPort: TEdit
+      Left = 24
+      Height = 51
+      Top = 48
+      Width = 88
+      NumbersOnly = True
+      TabOrder = 0
+      Text = '9055'
+    end
+    object lName2: TLabel
+      Left = 272
+      Height = 37
+      Top = 16
+      Width = 149
+      Caption = 'Порт socks5'
+      ParentColor = False
+    end
+    object eSocksPort: TEdit
+      Left = 272
+      Height = 51
+      Top = 48
+      Width = 80
+      NumbersOnly = True
+      TabOrder = 1
+      Text = '9065'
+    end
+    object lName3: TLabel
+      Left = 24
+      Height = 37
+      Top = 104
+      Width = 123
+      Caption = 'Tor bin dir'
+      ParentColor = False
+    end
+    object eTorBinDir: TEdit
+      Left = 24
+      Height = 51
+      Top = 144
+      Width = 176
+      TabOrder = 2
+    end
+    object lName4: TLabel
+      Left = 272
+      Height = 37
+      Top = 104
+      Width = 159
+      Caption = 'Tor config dir'
+      ParentColor = False
+    end
+    object eTorConfigDir: TEdit
+      Left = 272
+      Height = 51
+      Top = 144
+      Width = 176
+      TabOrder = 3
+      Text = 'torconfigs/000000'
+    end
+    object cbAutoStart: TCheckBox
+      AnchorSideLeft.Control = fbExtendet
+      AnchorSideRight.Control = fbExtendet
+      AnchorSideRight.Side = asrBottom
+      Left = 10
+      Height = 41
+      Top = 183
+      Width = 480
+      Anchors = [akLeft, akRight]
+      BorderSpacing.Left = 10
+      BorderSpacing.Right = 10
+      Caption = 'Подключать автоматически'
+      Checked = True
+      State = cbChecked
+      TabOrder = 4
+    end
+  end
+  object gbGeneralSettings: TGroupBox
+    Left = 24
+    Height = 168
+    Top = 24
+    Width = 1218
+    Caption = 'Обязательные настройки'
+    ClientHeight = 119
+    ClientWidth = 1214
+    TabOrder = 3
+    object lName: TLabel
+      Left = 40
+      Height = 37
+      Top = 24
+      Width = 53
+      Caption = 'Имя'
+      ParentColor = False
+    end
+    object eName: TEdit
+      Left = 40
+      Height = 51
+      Top = 64
+      Width = 397
+      TabOrder = 0
+    end
+    object lKeyLength: TLabel
+      Left = 480
+      Height = 37
+      Top = 24
+      Width = 248
+      Caption = 'Длинна ключа (бит)'
+      ParentColor = False
+    end
+    object cbKeyLength: TComboBox
+      Left = 480
+      Height = 51
+      Top = 64
+      Width = 248
+      ItemHeight = 43
+      ItemIndex = 0
+      Items.Strings = (
+        '128'
+        '256'
+        '512'
+        '768'
+        '1024'
+        '2048'
+        '3072'
+      )
+      ReadOnly = True
+      TabOrder = 1
+      Text = '128'
+    end
+    object lPassword: TLabel
+      Left = 816
+      Height = 37
+      Top = 24
+      Width = 247
+      Caption = 'Пароль для запуска'
+      ParentColor = False
+    end
+    object ePassword1: TEdit
+      Left = 816
+      Height = 51
+      Top = 64
+      Width = 171
+      EchoMode = emPassword
+      PasswordChar = '*'
+      TabOrder = 2
+    end
+    object ePassword2: TEdit
+      Left = 1008
+      Height = 51
+      Top = 64
+      Width = 171
+      EchoMode = emPassword
+      PasswordChar = '*'
+      TabOrder = 3
+    end
+  end
+  object lInfo: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 21
+    Height = 134
+    Top = 592
+    Width = 1251
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Around = 21
+    Caption = 'После нажатия на кнопку "Создать" старый пользователь, все его контакты и сообщения будут удалены.'#10'Будет начата генерация ключей RSA, это может занять некоторое время, после завершения процесса окно будет закрыто.'
+    ParentColor = False
+    WordWrap = True
+  end
+end

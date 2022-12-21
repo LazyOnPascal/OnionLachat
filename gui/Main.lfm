@@ -1,0 +1,354 @@
+object fChat: TfChat
+  Left = 578
+  Height = 1060
+  Top = 0
+  Width = 1342
+  HorzScrollBar.Smooth = True
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Smooth = True
+  VertScrollBar.Tracking = True
+  Anchors = []
+  Caption = 'LazOnionChat'
+  ClientHeight = 1016
+  ClientWidth = 1342
+  Constraints.MinHeight = 875
+  Constraints.MinWidth = 1050
+  DesignTimePPI = 168
+  Menu = MainMenu
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  Position = poDesktopCenter
+  LCLVersion = '2.2.4.0'
+  object bSendMessage: TButton
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = sbStatus
+    Left = 1120
+    Height = 44
+    Top = 900
+    Width = 187
+    Anchors = [akRight, akBottom]
+    BorderSpacing.Right = 35
+    BorderSpacing.Bottom = 35
+    Caption = 'Отправить'
+    OnClick = bSendMessageClick
+    TabOrder = 0
+  end
+  object mTextInput: TMemo
+    AnchorSideLeft.Control = sbContacts
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = bSendMessage
+    Left = 346
+    Height = 133
+    Top = 749
+    Width = 961
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Left = 52
+    BorderSpacing.Right = 35
+    BorderSpacing.Bottom = 18
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object sbStatus: TStatusBar
+    Left = 0
+    Height = 37
+    Top = 979
+    Width = 1342
+    Panels = <    
+      item
+        Alignment = taRightJustify
+        Text = '-'
+        Width = 44
+      end>
+    ParentColor = False
+    SimplePanel = False
+  end
+  object pMessages: TPanel
+    AnchorSideLeft.Control = sbContacts
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = mTextInput
+    Left = 346
+    Height = 671
+    Top = 52
+    Width = 961
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 52
+    BorderSpacing.Top = 52
+    BorderSpacing.Right = 35
+    BorderSpacing.Bottom = 26
+    ClientHeight = 671
+    ClientWidth = 961
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 3
+    object sbMessages: TScrollBox
+      AnchorSideLeft.Control = pMessages
+      AnchorSideLeft.Side = asrCenter
+      AnchorSideTop.Control = pMessages
+      AnchorSideRight.Control = pMessages
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = pMessages
+      AnchorSideBottom.Side = asrBottom
+      Left = 1
+      Height = 669
+      Top = 1
+      Width = 959
+      HorzScrollBar.Page = 1
+      HorzScrollBar.Visible = False
+      VertScrollBar.Increment = 9
+      VertScrollBar.Page = 99
+      VertScrollBar.Smooth = True
+      VertScrollBar.Tracking = True
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderStyle = bsNone
+      ClientHeight = 669
+      ClientWidth = 959
+      Color = clWhite
+      ParentColor = False
+      TabOrder = 0
+      object pMessage: TPanel
+        AnchorSideLeft.Control = sbMessages
+        AnchorSideTop.Control = sbMessages
+        Left = 9
+        Height = 56
+        Top = 13
+        Width = 169
+        AutoSize = True
+        BorderSpacing.Left = 9
+        BorderSpacing.Top = 13
+        BevelColor = clWhite
+        BevelWidth = 10
+        ClientHeight = 56
+        ClientWidth = 169
+        Color = clWhite
+        ParentColor = False
+        TabOrder = 0
+        object lMessageText: TLabel
+          AnchorSideLeft.Control = pMessage
+          AnchorSideTop.Control = pMessage
+          Left = 14
+          Height = 32
+          Top = 14
+          Width = 145
+          BorderSpacing.Left = 4
+          BorderSpacing.Top = 4
+          Caption = 'sdasdasdasdd'
+          Constraints.MaxWidth = 525
+          ParentColor = False
+          WordWrap = True
+        end
+      end
+      object lMessageDate: TLabel
+        AnchorSideLeft.Control = pMessage
+        AnchorSideTop.Control = pMessage
+        AnchorSideTop.Side = asrBottom
+        Left = 21
+        Height = 26
+        Top = 73
+        Width = 115
+        BorderSpacing.Left = 12
+        BorderSpacing.Top = 4
+        Caption = '12.12.12 22:22'
+        Font.Color = 9013643
+        Font.Height = -18
+        ParentColor = False
+        ParentFont = False
+      end
+    end
+  end
+  object bNewContact: TButton
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 35
+    Height = 44
+    Top = 52
+    Width = 44
+    BorderSpacing.Left = 35
+    BorderSpacing.Top = 52
+    Caption = '+'
+    OnClick = bNewContactClick
+    TabOrder = 4
+  end
+  object bCopySelfLink: TButton
+    AnchorSideLeft.Control = bNewContact
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = sbStatus
+    Left = 101
+    Height = 45
+    Top = 52
+    Width = 74
+    BorderSpacing.Left = 22
+    BorderSpacing.Top = 52
+    Caption = 'Link'
+    OnClick = bCopySelfLinkClick
+    TabOrder = 5
+  end
+  object sbContacts: TScrollBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = bCopySelfLink
+    AnchorSideTop.Side = asrBottom
+    AnchorSideBottom.Control = sbStatus
+    Left = 35
+    Height = 829
+    Top = 115
+    Width = 259
+    HorzScrollBar.Page = 1
+    HorzScrollBar.Visible = False
+    VertScrollBar.Page = 65
+    Anchors = [akTop, akLeft, akBottom]
+    BorderSpacing.Left = 35
+    BorderSpacing.Top = 18
+    BorderSpacing.Bottom = 35
+    ClientHeight = 825
+    ClientWidth = 255
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 6
+    object pContact: TPanel
+      AnchorSideLeft.Control = sbContacts
+      AnchorSideTop.Control = sbContacts
+      AnchorSideRight.Control = sbContacts
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 65
+      Top = 0
+      Width = 255
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = True
+      ClientHeight = 65
+      ClientWidth = 255
+      Color = clSilver
+      ParentColor = False
+      TabOrder = 0
+      OnClick = pContactClick
+      object lContactName: TLabel
+        AnchorSideLeft.Control = pContact
+        AnchorSideTop.Control = pContact
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = pContact
+        AnchorSideRight.Side = asrBottom
+        Cursor = crHandPoint
+        Left = 10
+        Height = 63
+        Top = 1
+        Width = 235
+        Alignment = taCenter
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Left = 9
+        BorderSpacing.Right = 9
+        Caption = 'User long Name Name is very long'
+        ParentColor = False
+        WordWrap = True
+      end
+    end
+  end
+  object MainMenu: TMainMenu
+    Left = 728
+    object mFile: TMenuItem
+      Caption = 'Фаил'
+      object mSavaDataBase: TMenuItem
+        Caption = 'Сохранить базу данных'
+      end
+      object mDeleteDataBase: TMenuItem
+        Caption = 'Удалить базу данных'
+      end
+      object Item17: TMenuItem
+        Caption = '-'
+      end
+      object mRestart: TMenuItem
+        Caption = 'Перезапуск программы'
+      end
+      object Item18: TMenuItem
+        Caption = '-'
+      end
+      object mExit: TMenuItem
+        Caption = 'Выйти'
+      end
+    end
+    object mConnection: TMenuItem
+      Caption = 'Соединение'
+      object mAutoConnect: TMenuItem
+        AutoCheck = True
+        Caption = 'Автоподключение'
+        Checked = True
+        OnClick = mAutoConnectClick
+      end
+      object MenuItem2: TMenuItem
+        Caption = '-'
+      end
+      object mConnectionConnect: TMenuItem
+        Caption = 'Подключиться'
+        OnClick = mConnectionConnectClick
+      end
+      object mConnectionDisconnect: TMenuItem
+        Caption = 'Отключиться'
+      end
+      object mConnectionRestart: TMenuItem
+        Caption = 'Перезапуск'
+      end
+    end
+    object mUser: TMenuItem
+      Caption = 'Пользователь'
+      OnClick = mUserClick
+      object mUserCopyLink: TMenuItem
+        Caption = 'Скопировать ссылку'
+        OnClick = mUserCopyLinkClick
+      end
+      object mUserSettings: TMenuItem
+        Caption = 'Настройки'
+      end
+      object MenuItem1: TMenuItem
+        Caption = '-'
+      end
+      object mNewUser: TMenuItem
+        Caption = 'Создать нового пользователя'
+        OnClick = mNewUserClick
+      end
+    end
+    object mContact: TMenuItem
+      Caption = 'Контакты'
+      object mContactCreate: TMenuItem
+        Caption = 'Создать новый контакт'
+      end
+      object mContactDelete: TMenuItem
+        Caption = 'Удалить выбранный контакт'
+      end
+      object mContactAbout: TMenuItem
+        Caption = 'Свойства выбранного контакта'
+      end
+    end
+    object mInfo: TMenuItem
+      Caption = 'Информация'
+      object mShowLogs: TMenuItem
+        Caption = 'Просмотр логов'
+      end
+      object mAbout: TMenuItem
+        Caption = 'О программе'
+      end
+    end
+  end
+  object tStatusUpdate: TTimer
+    Enabled = False
+    OnTimer = tStatusUpdateTimer
+    Left = 889
+    Top = 7
+  end
+  object tReconnect: TTimer
+    Enabled = False
+    Interval = 10000
+    OnTimer = tReconnectTimer
+    Left = 1043
+    Top = 14
+  end
+end
