@@ -18,6 +18,8 @@ type
     FPrevGUIMessage: TGUIMessage;
     FParentScrollBox: TScrollBox;
     FMessageGUIElements: TMessageGUIElements;
+  public
+    FChecked: boolean;
 
   private
     procedure CreateGUIMessage(aGUITemplate: TMessageGUITemplateElements);
@@ -25,7 +27,6 @@ type
   public
     constructor Create(aMessage: TChatMessage; aParentScrollBox: TScrollBox;
       aPrevGUIMessage: TGUIMessage; aGUITemplate: TMessageGUITemplateElements);
-    //нужно прописать создание мессаджа на экране из шаблона
     destructor Destroy; override;
   end;
 
@@ -36,6 +37,7 @@ type
     FGUITemplate: TMessageGUITemplateElements;
     FMessagesScrollBox: TScrollBox;
     FChatContact: TChatContact;
+    FNeedToReBuild: boolean;
 
   private
     function Get(Index: integer): TGUIMessage;
@@ -51,6 +53,7 @@ type
   public
     procedure Show;
     procedure Hide;
+    procedure Update;
 
   public
     property Items[Index: integer]: TGUIMessage read Get; default;
@@ -149,20 +152,12 @@ end;
 
 procedure TGUIMessageList.OnAddMessage(aMessage: TChatMessage);
 begin
-  self.Add(aMessage);
+  FNeedToReBuild := true;
 end;
 
 procedure TGUIMessageList.OnDeleteMessage(aMessage: TChatMessage);
-var
-  i: integer;
 begin
-  i := self.IndexOf(aMessage);
-  if (i = -1) then exit;
-
-  { TODO : Сделать перещёт привязок при удалении }
-
-  Items[i].Free;
-  inherited Delete(i);
+  FNeedToReBuild := true;
 end;
 
 function TGUIMessageList.Add(aMessage: TChatMessage): integer;
@@ -241,6 +236,53 @@ end;
 procedure TGUIMessageList.Hide;
 begin
   FMessagesScrollBox.Visible := False;
+end;
+
+// пересборка всех сообщений
+procedure TGUIMessageList.Update;
+var
+  i, ii : integer;
+begin
+  if FNeedToReBuild then
+  begin
+
+    for i := 0 to (self.Count - 1) do
+    begin  // отмечаем все сообщения в интефейсе не проверенными
+      self.Items[i].FChecked:=false;
+    end;
+
+    for i := 0 to (ChatContact.Messages.Count - 1) do
+    begin
+      if ((self.Count - 1) >= i) then //если такой индекс существует в gui
+      begin
+        if not ( ChatContact.Messages.Items[i] = self.Items[i].FMessage ) then
+        begin // если гуи мессадж не равен индексу в ядре
+          self.Items[i].Free; // освобождаем гуи объект
+          self.Delete(i);
+          ii := self.Add(ChatContact.Messages.Items[i]); //передавбавляем этот мессадж
+          self.Items[ii].FChecked:=true;
+        end else
+        begin
+          self.Items[i].FChecked:=true;
+        end;
+      end else
+      begin // если индекса не существет то создаём
+        ii := self.Add(ChatContact.Messages.Items[i]);
+        self.Items[ii].FChecked:=true;
+      end;
+    end;
+
+    for i := 0 to (self.Count - 1) do
+    begin //если остались непроверенные гуи обьекты - удаляем
+      if not self.Items[i].FChecked then
+      begin
+        self.Items[i].Free;
+        self.Delete(i);
+      end;
+    end;
+
+    FNeedToReBuild := false;
+  end;
 end;
 
 end.

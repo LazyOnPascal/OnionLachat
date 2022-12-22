@@ -104,7 +104,7 @@ begin
   gm.autostart:= autoSt;
   gm.SaveData;
 
-  fChat.mAutoConnect.Checked:=autoSt;
+  //fChat.mAutoConnect.Checked:=autoSt;
 
   Close;
 end;

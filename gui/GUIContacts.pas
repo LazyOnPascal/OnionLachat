@@ -23,14 +23,16 @@ type
 
     FGUIMessageList: TGUIMessageList;
     FSetActivMessagesListProc: TSetActivMessagesListProc;
+  public
+    FChecked: boolean;
+
   private
     procedure onClick(Sender: TObject);
   public
     constructor Create(aUserContact: TChatContact;
       aContactGUITemplateElements: TContactGUITemplateElements;
       aMessageGUITemplateElements: TMessageGUITemplateElements;
-      aTopAnchor: TControl;
-      aSetActivMessagesListProc: TSetActivMessagesListProc);
+      aTopAnchor: TControl; aSetActivMessagesListProc: TSetActivMessagesListProc);
     destructor Destroy; override;
   public
     procedure Update;
@@ -44,14 +46,14 @@ type
     FContactGUITemplateElements: TContactGUITemplateElements;
     FMessageGUITemplateElements: TMessageGUITemplateElements;
     FActiveGUIMessageList: TGUIMessageList;
+    FNeedToReBuild: boolean;
 
   private
     function Get(Index: integer): TGUIContact;
     procedure OnAddContact(aContact: TChatContact);
     procedure OnDeleteContact(aContact: TChatContact);
     function Add(aUserContact: TChatContact): integer;
-    procedure SetActiveMessageList(
-      aGUIMessageList: TGUIMessageList);
+    procedure SetActiveMessageList(aGUIMessageList: TGUIMessageList);
 
   public
     constructor Create();
@@ -84,8 +86,7 @@ end;
 constructor TGUIContact.Create(aUserContact: TChatContact;
   aContactGUITemplateElements: TContactGUITemplateElements;
   aMessageGUITemplateElements: TMessageGUITemplateElements;
-  aTopAnchor: TControl;
-  aSetActivMessagesListProc: TSetActivMessagesListProc);
+  aTopAnchor: TControl; aSetActivMessagesListProc: TSetActivMessagesListProc);
 var
   stream: TMemoryStream;
 begin
@@ -102,8 +103,7 @@ begin
     aContactGUITemplateElements.lContactLabelTemplate);
   stream.Position := 0;
 
-  FGUIPanel := TPanel.Create(
-    aContactGUITemplateElements.sbContactScrollBox);
+  FGUIPanel := TPanel.Create(aContactGUITemplateElements.sbContactScrollBox);
   FGUILabel := TLabel.Create(FGUIPanel);
   stream.ReadComponent(FGUIPanel);
   stream.ReadComponent(FGUILabel);
@@ -112,13 +112,11 @@ begin
 
 
 
-  FGUIPanel.Name := 'newpabel' +
-    RandomString(GUI_ELEMENT_NAME_LENGTH);
+  FGUIPanel.Name := 'newpabel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
   FGUIPanel.Visible := True;
   FGUIPanel.parent := aContactGUITemplateElements.sbContactScrollBox;
 
-  FGUILabel.Name := 'newlabel' +
-    RandomString(GUI_ELEMENT_NAME_LENGTH);
+  FGUILabel.Name := 'newlabel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
   FGUILabel.Visible := True;
   FGUILabel.parent := FGUIPanel;
   FGUILabel.OnClick := @self.onClick;
@@ -128,7 +126,8 @@ begin
     FGuiPanel.AnchorSideTop.Control := aTopAnchor;
     FGuiPanel.AnchorSideTop.Side := asrBottom;
 
-  end else
+  end
+  else
   begin
     FGuiPanel.AnchorSideTop.Control := aContactGUITemplateElements.sbContactScrollBox;
   end;
@@ -157,6 +156,8 @@ begin
     FGUIPanel.Color := clSilver;
   end;
 
+  FGUIMessageList.Update;
+
 end;
 
 { TGUIContactList }
@@ -165,6 +166,7 @@ constructor TGUIContactList.Create;
 begin
   inherited;
   FActiveGUIMessageList := nil;
+  FNeedToReBuild := False;
 end;
 
 destructor TGUIContactList.Destroy;
@@ -190,8 +192,7 @@ begin
     aTopAnchor, @self.SetActiveMessageList));
 end;
 
-procedure TGUIContactList.SetActiveMessageList(
-  aGUIMessageList: TGUIMessageList);
+procedure TGUIContactList.SetActiveMessageList(aGUIMessageList: TGUIMessageList);
 begin
   if not (FActiveGUIMessageList = nil) then
   begin
@@ -208,29 +209,12 @@ end;
 
 procedure TGUIContactList.OnAddContact(aContact: TChatContact);
 begin
-  self.Add(aContact);
+  FNeedToReBuild := True;
 end;
 
 procedure TGUIContactList.OnDeleteContact(aContact: TChatContact);
-var
-  i: integer;
-  aTopAnchor: TControl;
 begin
-  i := self.IndexOf(aContact);
-  if (i = -1) then exit;
-
-  if (i = 0) and (self.Count >= 2) then
-  begin
-    { TODO :  обновить упор в гуи кантактов при удалении}
-    // у контакта items[1] выставить упор топ скрулбокса
-  end
-  else if ((self.Count - 1) > i) then
-  begin
-    // у контакта items[i+1] выставить упор низ панели items[i-1]
-  end;
-
-  Items[i].Free;
-  inherited Delete(i);
+  FNeedToReBuild := True;
 end;
 
 procedure TGUIContactList.Init(aUserContacts: TChatContactList;
@@ -264,11 +248,61 @@ end;
 
 procedure TGUIContactList.Update;
 var
-  I: integer;
+  i, ii: integer;
 begin
+
+  // пересборка контакт листа если изменился FUserContacts
+  if FNeedToReBuild then
+  begin
+
+    for i := 0 to (self.Count - 1) do
+      // отмечаем все сообщения в интефейсе не проверенными
+    begin
+      self.Items[i].FChecked := False;
+    end;
+
+    for i := 0 to (FUserContacts.Count - 1) do
+      //перебираем все контакты
+    begin
+      if ((self.Count - 1) >= i) then
+        //если такой индекс существует в gui
+      begin
+        if not (FUserContacts.Items[i] = self.Items[i].FUserContact) then
+        begin // если гуи контакт не равен индексу в ядре
+          self.Items[i].Free; // освобождаем гуи объект
+          self.Delete(i);
+          ii := self.Add(FUserContacts.Items[i]);
+          //передавбавляем этот контакт
+          self.Items[ii].FChecked := True;
+        end
+        else
+        begin
+          self.Items[i].FChecked := True; // всё норм, гуи правильный
+        end;
+      end
+      else
+      begin // если индекса не существет то создаём
+        ii := self.Add(FUserContacts.Items[i]);
+        self.Items[ii].FChecked := True;
+      end;
+    end;
+
+    for i := 0 to (self.Count - 1) do
+    begin //если остались непроверенные гуи обьекты - удаляем
+      if not self.Items[i].FChecked then
+      begin
+        self.Items[i].Free;
+        self.Delete(i);
+      end;
+    end;
+
+    FNeedToReBuild := False;
+  end;
+
   for I := 0 to Count - 1 do
   begin
     Items[I].Update;
+    // обновление статуса(подключен или нет)
   end;
 end;
 

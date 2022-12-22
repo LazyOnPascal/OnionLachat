@@ -1,20 +1,19 @@
 object fChat: TfChat
   Left = 578
-  Height = 1060
+  Height = 1211
   Top = 0
-  Width = 1342
+  Width = 1534
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
   VertScrollBar.Smooth = True
   VertScrollBar.Tracking = True
   Anchors = []
   Caption = 'LazOnionChat'
-  ClientHeight = 1016
-  ClientWidth = 1342
-  Constraints.MinHeight = 875
-  Constraints.MinWidth = 1050
-  DesignTimePPI = 168
-  Menu = MainMenu
+  ClientHeight = 1211
+  ClientWidth = 1534
+  Constraints.MinHeight = 1000
+  Constraints.MinWidth = 1200
+  DesignTimePPI = 192
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -25,13 +24,13 @@ object fChat: TfChat
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = sbStatus
-    Left = 1120
-    Height = 44
-    Top = 900
-    Width = 187
+    Left = 1280
+    Height = 50
+    Top = 1079
+    Width = 214
     Anchors = [akRight, akBottom]
-    BorderSpacing.Right = 35
-    BorderSpacing.Bottom = 35
+    BorderSpacing.Right = 40
+    BorderSpacing.Bottom = 40
     Caption = 'Отправить'
     OnClick = bSendMessageClick
     TabOrder = 0
@@ -43,27 +42,27 @@ object fChat: TfChat
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = bSendMessage
-    Left = 346
-    Height = 133
-    Top = 749
-    Width = 961
+    Left = 395
+    Height = 152
+    Top = 906
+    Width = 1099
     Anchors = [akLeft, akRight, akBottom]
-    BorderSpacing.Left = 52
-    BorderSpacing.Right = 35
-    BorderSpacing.Bottom = 18
+    BorderSpacing.Left = 59
+    BorderSpacing.Right = 40
+    BorderSpacing.Bottom = 21
     ScrollBars = ssAutoBoth
     TabOrder = 1
   end
   object sbStatus: TStatusBar
     Left = 0
-    Height = 37
-    Top = 979
-    Width = 1342
+    Height = 42
+    Top = 1169
+    Width = 1534
     Panels = <    
       item
         Alignment = taRightJustify
         Text = '-'
-        Width = 44
+        Width = 50
       end>
     ParentColor = False
     SimplePanel = False
@@ -75,17 +74,17 @@ object fChat: TfChat
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = mTextInput
-    Left = 346
-    Height = 671
-    Top = 52
-    Width = 961
+    Left = 395
+    Height = 817
+    Top = 59
+    Width = 1099
     Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderSpacing.Left = 52
-    BorderSpacing.Top = 52
-    BorderSpacing.Right = 35
-    BorderSpacing.Bottom = 26
-    ClientHeight = 671
-    ClientWidth = 961
+    BorderSpacing.Left = 59
+    BorderSpacing.Top = 59
+    BorderSpacing.Right = 40
+    BorderSpacing.Bottom = 30
+    ClientHeight = 817
+    ClientWidth = 1099
     Color = clWhite
     ParentColor = False
     TabOrder = 3
@@ -98,50 +97,50 @@ object fChat: TfChat
       AnchorSideBottom.Control = pMessages
       AnchorSideBottom.Side = asrBottom
       Left = 1
-      Height = 669
+      Height = 815
       Top = 1
-      Width = 959
+      Width = 1097
       HorzScrollBar.Page = 1
       HorzScrollBar.Visible = False
-      VertScrollBar.Increment = 9
-      VertScrollBar.Page = 99
+      VertScrollBar.Increment = 11
+      VertScrollBar.Page = 112
       VertScrollBar.Smooth = True
       VertScrollBar.Tracking = True
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderStyle = bsNone
-      ClientHeight = 669
-      ClientWidth = 959
+      ClientHeight = 815
+      ClientWidth = 1097
       Color = clWhite
       ParentColor = False
       TabOrder = 0
       object pMessage: TPanel
         AnchorSideLeft.Control = sbMessages
         AnchorSideTop.Control = sbMessages
-        Left = 9
-        Height = 56
-        Top = 13
-        Width = 169
+        Left = 10
+        Height = 62
+        Top = 15
+        Width = 195
         AutoSize = True
-        BorderSpacing.Left = 9
-        BorderSpacing.Top = 13
+        BorderSpacing.Left = 10
+        BorderSpacing.Top = 15
         BevelColor = clWhite
         BevelWidth = 10
-        ClientHeight = 56
-        ClientWidth = 169
+        ClientHeight = 62
+        ClientWidth = 195
         Color = clWhite
         ParentColor = False
         TabOrder = 0
         object lMessageText: TLabel
           AnchorSideLeft.Control = pMessage
           AnchorSideTop.Control = pMessage
-          Left = 14
-          Height = 32
-          Top = 14
-          Width = 145
-          BorderSpacing.Left = 4
-          BorderSpacing.Top = 4
+          Left = 15
+          Height = 37
+          Top = 15
+          Width = 170
+          BorderSpacing.Left = 5
+          BorderSpacing.Top = 5
           Caption = 'sdasdasdasdd'
-          Constraints.MaxWidth = 525
+          Constraints.MaxWidth = 600
           ParentColor = False
           WordWrap = True
         end
@@ -150,15 +149,15 @@ object fChat: TfChat
         AnchorSideLeft.Control = pMessage
         AnchorSideTop.Control = pMessage
         AnchorSideTop.Side = asrBottom
-        Left = 21
-        Height = 26
-        Top = 73
-        Width = 115
-        BorderSpacing.Left = 12
-        BorderSpacing.Top = 4
+        Left = 24
+        Height = 30
+        Top = 82
+        Width = 134
+        BorderSpacing.Left = 14
+        BorderSpacing.Top = 5
         Caption = '12.12.12 22:22'
         Font.Color = 9013643
-        Font.Height = -18
+        Font.Height = -21
         ParentColor = False
         ParentFont = False
       end
@@ -168,12 +167,12 @@ object fChat: TfChat
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 35
-    Height = 44
-    Top = 52
-    Width = 44
-    BorderSpacing.Left = 35
-    BorderSpacing.Top = 52
+    Left = 40
+    Height = 50
+    Top = 59
+    Width = 50
+    BorderSpacing.Left = 40
+    BorderSpacing.Top = 59
     Caption = '+'
     OnClick = bNewContactClick
     TabOrder = 4
@@ -184,12 +183,12 @@ object fChat: TfChat
     AnchorSideTop.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = sbStatus
-    Left = 101
-    Height = 45
-    Top = 52
-    Width = 74
-    BorderSpacing.Left = 22
-    BorderSpacing.Top = 52
+    Left = 115
+    Height = 51
+    Top = 59
+    Width = 85
+    BorderSpacing.Left = 25
+    BorderSpacing.Top = 59
     Caption = 'Link'
     OnClick = bCopySelfLinkClick
     TabOrder = 5
@@ -199,19 +198,19 @@ object fChat: TfChat
     AnchorSideTop.Control = bCopySelfLink
     AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = sbStatus
-    Left = 35
-    Height = 829
-    Top = 115
-    Width = 259
+    Left = 40
+    Height = 998
+    Top = 131
+    Width = 296
     HorzScrollBar.Page = 1
     HorzScrollBar.Visible = False
-    VertScrollBar.Page = 65
+    VertScrollBar.Page = 76
     Anchors = [akTop, akLeft, akBottom]
-    BorderSpacing.Left = 35
-    BorderSpacing.Top = 18
-    BorderSpacing.Bottom = 35
-    ClientHeight = 825
-    ClientWidth = 255
+    BorderSpacing.Left = 40
+    BorderSpacing.Top = 21
+    BorderSpacing.Bottom = 40
+    ClientHeight = 994
+    ClientWidth = 292
     Color = clWhite
     ParentColor = False
     TabOrder = 6
@@ -221,13 +220,13 @@ object fChat: TfChat
       AnchorSideRight.Control = sbContacts
       AnchorSideRight.Side = asrBottom
       Left = 0
-      Height = 65
+      Height = 76
       Top = 0
-      Width = 255
+      Width = 292
       Anchors = [akTop, akLeft, akRight]
       AutoSize = True
-      ClientHeight = 65
-      ClientWidth = 255
+      ClientHeight = 76
+      ClientWidth = 292
       Color = clSilver
       ParentColor = False
       TabOrder = 0
@@ -239,116 +238,31 @@ object fChat: TfChat
         AnchorSideRight.Control = pContact
         AnchorSideRight.Side = asrBottom
         Cursor = crHandPoint
-        Left = 10
-        Height = 63
+        Left = 11
+        Height = 74
         Top = 1
-        Width = 235
+        Width = 270
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight]
-        BorderSpacing.Left = 9
-        BorderSpacing.Right = 9
+        BorderSpacing.Left = 10
+        BorderSpacing.Right = 10
         Caption = 'User long Name Name is very long'
         ParentColor = False
         WordWrap = True
       end
     end
   end
-  object MainMenu: TMainMenu
-    Left = 728
-    object mFile: TMenuItem
-      Caption = 'Фаил'
-      object mSavaDataBase: TMenuItem
-        Caption = 'Сохранить базу данных'
-      end
-      object mDeleteDataBase: TMenuItem
-        Caption = 'Удалить базу данных'
-      end
-      object Item17: TMenuItem
-        Caption = '-'
-      end
-      object mRestart: TMenuItem
-        Caption = 'Перезапуск программы'
-      end
-      object Item18: TMenuItem
-        Caption = '-'
-      end
-      object mExit: TMenuItem
-        Caption = 'Выйти'
-      end
-    end
-    object mConnection: TMenuItem
-      Caption = 'Соединение'
-      object mAutoConnect: TMenuItem
-        AutoCheck = True
-        Caption = 'Автоподключение'
-        Checked = True
-        OnClick = mAutoConnectClick
-      end
-      object MenuItem2: TMenuItem
-        Caption = '-'
-      end
-      object mConnectionConnect: TMenuItem
-        Caption = 'Подключиться'
-        OnClick = mConnectionConnectClick
-      end
-      object mConnectionDisconnect: TMenuItem
-        Caption = 'Отключиться'
-      end
-      object mConnectionRestart: TMenuItem
-        Caption = 'Перезапуск'
-      end
-    end
-    object mUser: TMenuItem
-      Caption = 'Пользователь'
-      OnClick = mUserClick
-      object mUserCopyLink: TMenuItem
-        Caption = 'Скопировать ссылку'
-        OnClick = mUserCopyLinkClick
-      end
-      object mUserSettings: TMenuItem
-        Caption = 'Настройки'
-      end
-      object MenuItem1: TMenuItem
-        Caption = '-'
-      end
-      object mNewUser: TMenuItem
-        Caption = 'Создать нового пользователя'
-        OnClick = mNewUserClick
-      end
-    end
-    object mContact: TMenuItem
-      Caption = 'Контакты'
-      object mContactCreate: TMenuItem
-        Caption = 'Создать новый контакт'
-      end
-      object mContactDelete: TMenuItem
-        Caption = 'Удалить выбранный контакт'
-      end
-      object mContactAbout: TMenuItem
-        Caption = 'Свойства выбранного контакта'
-      end
-    end
-    object mInfo: TMenuItem
-      Caption = 'Информация'
-      object mShowLogs: TMenuItem
-        Caption = 'Просмотр логов'
-      end
-      object mAbout: TMenuItem
-        Caption = 'О программе'
-      end
-    end
-  end
   object tStatusUpdate: TTimer
     Enabled = False
     OnTimer = tStatusUpdateTimer
-    Left = 889
-    Top = 7
+    Left = 1016
+    Top = 8
   end
   object tReconnect: TTimer
     Enabled = False
     Interval = 10000
     OnTimer = tReconnectTimer
-    Left = 1043
-    Top = 14
+    Left = 1192
+    Top = 16
   end
 end

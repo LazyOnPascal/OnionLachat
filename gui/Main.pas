@@ -45,6 +45,8 @@ const
   IDHELP = 9;
   ID_HELP = IDHELP;
 
+  FORM_CAPTION = 'OnionLachat';
+
 type
 
   { TfChat }
@@ -56,33 +58,7 @@ type
     lContactName: TLabel;
     lMessageText: TLabel;
     lMessageDate: TLabel;
-    MainMenu: TMainMenu;
-    mContact: TMenuItem;
-    mContactCreate: TMenuItem;
-    mContactDelete: TMenuItem;
-    mContactAbout: TMenuItem;
-    MenuItem1: TMenuItem;
-    mAutoConnect: TMenuItem;
-    MenuItem2: TMenuItem;
     mTextInput: TMemo;
-    mUser: TMenuItem;
-    mUserSettings: TMenuItem;
-    mInfo: TMenuItem;
-    mShowLogs: TMenuItem;
-    mAbout: TMenuItem;
-    mConnectionDisconnect: TMenuItem;
-    mConnectionRestart: TMenuItem;
-    mRestart: TMenuItem;
-    Item17: TMenuItem;
-    Item18: TMenuItem;
-    mFile: TMenuItem;
-    mNewUser: TMenuItem;
-    mConnection: TMenuItem;
-    mUserCopyLink: TMenuItem;
-    mConnectionConnect: TMenuItem;
-    mSavaDataBase: TMenuItem;
-    mExit: TMenuItem;
-    mDeleteDataBase: TMenuItem;
     pContact: TPanel;
     pMessage: TPanel;
     pMessages: TPanel;
@@ -101,6 +77,7 @@ type
     procedure mAutoConnectClick(Sender: TObject);
     procedure mConnectionConnectClick(Sender: TObject);
     procedure mNewUserClick(Sender: TObject);
+    procedure mSavaDataBaseClick(Sender: TObject);
     procedure mUserClick(Sender: TObject);
     procedure mUserCopyLinkClick(Sender: TObject);
     procedure pContactClick(Sender: TObject);
@@ -152,28 +129,33 @@ begin
   if (gm.user = nil) then exit;
 
   gm.UpdateTorStatus;
-  gm.UpdateContactList;
-  gm.UpdateMessageList;
+  gm.UpdateContactsAndMessages;
 
   status := '';
-  if gm.user.Error then status :=
-      'есть ошибки конструктора';
-  if gm.user.Tor.error then
-    status := 'есть ошибки запуска tor';
-  if not gm.user.Tor.process.Running then
+  if gm.user.Error then
+  begin
+    status := 'constructor error';
+  end
+  else if gm.user.Tor.error then
+  begin
+    status := 'tor error';
+  end else if not gm.user.Tor.process.Running then
   begin
     status := 'OFFLINE';
+    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clSilver;
   end
   else
   begin
     status := 'CONNECTING';
+    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clCream;
   end;
 
   if gm.user.Tor.ready then
   begin
     status := 'ONLINE';
+    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clMoneyGreen;
     if not tReconnect.Enabled then
     begin
@@ -241,9 +223,9 @@ begin
     repeat
       if gm.LoadData('') or gm.LoadData(
         PasswordBox('LazOnionChat',
-        'Введите пароль разблокировки')) then break;
+        'Enter password')) then break;
       resp := Application.MessageBox(
-        'Не удалось расшифровать', 'LazOnionChat',
+        'Bad password', 'LazOnionChat',
         MB_ICONQUESTION + MB_RETRYCANCEL);
     until not (resp = idRetry);
 
@@ -252,7 +234,7 @@ begin
     if not (gm.user = nil) then
     begin
       if gm.autostart then gm.Connect;
-      fChat.mAutoConnect.Checked := gm.autostart;
+      //fChat.mAutoConnect.Checked := gm.autostart;
       tStatusUpdate.Enabled := True;
 
       aContactTemplate.sbContactScrollBox := sbContacts;
@@ -282,7 +264,7 @@ end;
 
 procedure TfChat.mAutoConnectClick(Sender: TObject);
 begin
-  gm.autostart := mAutoConnect.Checked;
+  //gm.autostart := mAutoConnect.Checked;
 end;
 
 procedure TfChat.mConnectionConnectClick(Sender: TObject);
@@ -294,6 +276,11 @@ procedure TfChat.mNewUserClick(Sender: TObject);
 begin
   fNewUser.SetDefaults;
   fNewUser.ShowModal;
+end;
+
+procedure TfChat.mSavaDataBaseClick(Sender: TObject);
+begin
+
 end;
 
 end.

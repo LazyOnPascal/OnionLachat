@@ -39,8 +39,7 @@ type
     procedure Connect;
     procedure UpdateTorStatus;
     procedure NewContact;
-    procedure UpdateContactList;
-    procedure UpdateMessageList;
+    procedure UpdateContactsAndMessages;
     procedure GetLink;
     procedure ReconnectConntact;
 
@@ -100,47 +99,15 @@ begin
       Source.WriteAnsiString(DATABASE_TEST_STRING);
       Source.WriteByte(byte(FAutoConnect));
       FUser.PackToStream(Source);
-
-      // first print stream
-      PrintStr := TMemoryStream.Create;
       Source.Position := 0;
-      LbEncodeBase64(Source, PrintStr);
-      Source.Position := 0;
-      st := '';
-      PrintStr.Position := 0;
-      for i := 0 to (PrintStr.Size - 1) do
-      begin
-        st += char(PrintStr.ReadByte);
-      end;
-      WriteLn(' --- Source Data in stream for save --- ');
-      Writeln(st);
-      WriteLn(' -------------------------------------- ');
-
-
       EncriptStream(Source, dest, self.pass);
-
-      // second print encripted
-      PrintStr.Clear;
       dest.Position := 0;
-      LbEncodeBase64(dest, PrintStr);
-      dest.Position := 0;
-      st := '';
-      PrintStr.Position := 0;
-      for i := 0 to (PrintStr.Size - 1) do
-      begin
-        st += char(PrintStr.ReadByte);
-      end;
-      WriteLn(' --- Encrited Data in stream for save --- ');
-      Writeln(st);
-      WriteLn(' -------------------------------------- ');
-
-
       filestr.CopyFrom(dest, dest.Size);
     finally
       Source.Free;
       dest.Free;
       filestr.Free;
-      PrintStr.Free;
+      //PrintStr.Free;
     end;
 
   except
@@ -169,39 +136,43 @@ begin
       filestr := TFileStream.Create(DATABASE_NAME, fmOpenRead or
         fmShareDenyWrite);
       Source.CopyFrom(filestr, filestr.Size);
-
-      // first print stream from file
-      PrintStr := TMemoryStream.Create;
       Source.Position := 0;
-      LbEncodeBase64(Source, PrintStr);
-      Source.Position := 0;
-      st := '';
-      PrintStr.Position := 0;
-      for i := 0 to (PrintStr.Size - 1) do
-      begin
-        st += char(PrintStr.ReadByte);
-      end;
-      WriteLn(' --- Source Data from file readed ----- ');
-      Writeln(st);
-      WriteLn(' -------------------------------------- ');
+      {
+       // first print stream from file
+       PrintStr := TMemoryStream.Create;
+       Source.Position := 0;
+       LbEncodeBase64(Source, PrintStr);
+       Source.Position := 0;
+       st := '';
+       PrintStr.Position := 0;
+       for i := 0 to (PrintStr.Size - 1) do
+       begin
+         st += char(PrintStr.ReadByte);
+       end;
+       WriteLn(' --- Source Data from file readed ----- ');
+       Writeln(st);
+       WriteLn(' -------------------------------------- ');
+      }
 
 
       DecriptStream(Source, dest, aPassword);
-
-      // second print encripted
-      PrintStr.Clear;
       dest.Position := 0;
-      LbEncodeBase64(dest, PrintStr);
-      dest.Position := 0;
-      st := '';
-      PrintStr.Position := 0;
-      for i := 0 to (PrintStr.Size - 1) do
-      begin
-        st += char(PrintStr.ReadByte);
-      end;
-      WriteLn(' --- Decripted Data from file --------- ');
-      Writeln(st);
-      WriteLn(' -------------------------------------- ');
+      {
+       // second print encripted
+       PrintStr.Clear;
+       dest.Position := 0;
+       LbEncodeBase64(dest, PrintStr);
+       dest.Position := 0;
+       st := '';
+       PrintStr.Position := 0;
+       for i := 0 to (PrintStr.Size - 1) do
+       begin
+         st += char(PrintStr.ReadByte);
+       end;
+       WriteLn(' --- Decripted Data from file --------- ');
+       Writeln(st);
+       WriteLn(' -------------------------------------- ');
+      }
 
 
       try
@@ -269,20 +240,20 @@ var
   contact: TChatContact;
 begin
   link := '';
-  if InputQuery('Новый контакт', 'Введите сссылку',
+  if InputQuery('New contact', 'Enter link',
     link) then
   begin
     contact := TChatContact.Create(FUser, link);
     if (FUser.Contacts.Add(contact) = -1) then
     begin
-      ShowMessage('Ошибка добавления пользователя'
+      ShowMessage('Error'
         );
       contact.Free;
     end;
   end;
 end;
 
-procedure TGUIMaster.UpdateContactList;
+procedure TGUIMaster.UpdateContactsAndMessages;
 var
   i: integer;
   strInList: string;
@@ -308,11 +279,6 @@ begin
       fChat.lbContacts.Items.Add(strInList); }
 
   end;}
-end;
-
-procedure TGUIMaster.UpdateMessageList;
-begin
-
 end;
 
 procedure TGUIMaster.GetLink;

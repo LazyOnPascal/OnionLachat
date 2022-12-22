@@ -120,7 +120,7 @@ end;
 procedure TChatUser.PackToStream(aStream: TStream);
 begin
 
-  { #todo -cBUG : when save the database absolute file paths are written.
+  { #todo -cBUG : save absolute file paths in database.
                   no possibility of transferring program from pc to pc }
   aStream.WriteQWord(FILE_DATA_BASE_VER_1);
   aStream.WriteAnsiString(FName);
