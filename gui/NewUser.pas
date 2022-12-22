@@ -29,8 +29,6 @@ type
     gbBridge: TGroupBox;
     fbExtendet: TGroupBox;
     gbGeneralSettings: TGroupBox;
-    lInfo: TLabel;
-    lBridgeHelp: TLabel;
     lKeyLength: TLabel;
     lName: TLabel;
     lName1: TLabel;
