@@ -1,5 +1,5 @@
-####There are a lot of bugs, the development continues.
-####Already available:
+There are a lot of bugs, the development continues.
+Already available:
 ```
 - Connection via onion network of two or more users with end-to-end encryption.
 - Forward text messages.
