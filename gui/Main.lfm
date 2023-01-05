@@ -1,7 +1,7 @@
 object fChat: TfChat
-  Left = 578
+  Left = 891
   Height = 1211
-  Top = 0
+  Top = 156
   Width = 1534
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
@@ -116,30 +116,34 @@ object fChat: TfChat
       object pMessage: TPanel
         AnchorSideLeft.Control = sbMessages
         AnchorSideTop.Control = sbMessages
+        AnchorSideRight.Control = sbMessages
+        AnchorSideRight.Side = asrBottom
         Left = 10
         Height = 62
         Top = 15
-        Width = 195
+        Width = 246
         AutoSize = True
         BorderSpacing.Left = 10
         BorderSpacing.Top = 15
+        BorderSpacing.Right = 10
         BevelColor = clWhite
         BevelWidth = 10
         ClientHeight = 62
-        ClientWidth = 195
+        ClientWidth = 246
         Color = clWhite
         ParentColor = False
         TabOrder = 0
         object lMessageText: TLabel
           AnchorSideLeft.Control = pMessage
           AnchorSideTop.Control = pMessage
+          AnchorSideRight.Control = pMessage
           Left = 15
           Height = 37
           Top = 15
-          Width = 170
+          Width = 221
           BorderSpacing.Left = 5
           BorderSpacing.Top = 5
-          Caption = 'sdasdasdasdd'
+          Caption = 'Message template'
           Constraints.MaxWidth = 600
           ParentColor = False
           WordWrap = True
@@ -149,12 +153,15 @@ object fChat: TfChat
         AnchorSideLeft.Control = pMessage
         AnchorSideTop.Control = pMessage
         AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = pMessage
+        AnchorSideRight.Side = asrBottom
         Left = 24
         Height = 30
         Top = 82
         Width = 134
         BorderSpacing.Left = 14
         BorderSpacing.Top = 5
+        BorderSpacing.Right = 14
         Caption = '12.12.12 22:22'
         Font.Color = 9013643
         Font.Height = -21

@@ -13,6 +13,7 @@ type
 procedure CreateFileFromStream(aFilePath: string; aStream: TStream);
 procedure ProgramLogError(aError: string);
 procedure ProgramLogInfo(aText: string);
+procedure ProgramLogDebug(aText: string);
 
 implementation
 
@@ -32,8 +33,7 @@ begin
         fsCreate.CopyFrom(aStream, aStream.Size);
         fsCreate.Free;
       except
-        raise EFileStream.Create(
-          'Some error while create geoip file');
+        raise EFileStream.Create('Some error while create geoip file');
       end;
     end;
   end;
@@ -45,8 +45,7 @@ var
   st: string;
 begin
   st := IntToStr(GetCurrentThreadID());
-  Writeln('ERROR ',TimeToStr(Time), ' (', Copy(st, Length(st) -
-    4, 4), ') ', aError);
+  Writeln('ERROR ', TimeToStr(Time), ' (', Copy(st, Length(st) - 4, 4), ') ', aError);
   //GetCurrentThreadID() // Windows;
   //GetThreadID() // Darwin (macOS); FreeBSD;
   //TThreadID(pthread_self) // Linux;
@@ -59,7 +58,17 @@ begin
   st := IntToStr(GetCurrentThreadID());
   Writeln(TimeToStr(Time), ' (', Copy(st, Length(st) -
     4, 4), ') ', aText);
+end;
 
+procedure ProgramLogDebug(aText: string);
+var
+  st: string;
+begin
+  {$IFOPT D+}
+  st := IntToStr(GetCurrentThreadID());
+  Writeln(TimeToStr(Time), ' (', Copy(st, Length(st) -
+    4, 4), ') ', aText);
+  {$ENDIF}
 end;
 
 

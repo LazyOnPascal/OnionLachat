@@ -112,11 +112,11 @@ begin
 
 
 
-  FGUIPanel.Name := 'newpabel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+  FGUIPanel.Name := 'newpabel' + IntToStr(GetNewGuiNumber);
   FGUIPanel.Visible := True;
   FGUIPanel.parent := aContactGUITemplateElements.sbContactScrollBox;
 
-  FGUILabel.Name := 'newlabel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+  FGUILabel.Name := 'newlabel' + IntToStr(GetNewGuiNumber);
   FGUILabel.Visible := True;
   FGUILabel.parent := FGUIPanel;
   FGUILabel.OnClick := @self.onClick;
@@ -125,7 +125,6 @@ begin
   begin
     FGuiPanel.AnchorSideTop.Control := aTopAnchor;
     FGuiPanel.AnchorSideTop.Side := asrBottom;
-
   end
   else
   begin

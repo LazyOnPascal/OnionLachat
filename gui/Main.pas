@@ -142,20 +142,17 @@ begin
   end else if not gm.user.Tor.process.Running then
   begin
     status := 'OFFLINE';
-    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clSilver;
   end
   else
   begin
     status := 'CONNECTING';
-    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clCream;
   end;
 
   if gm.user.Tor.ready then
   begin
     status := 'ONLINE';
-    fChat.Caption := FORM_CAPTION + ' ' + status;
     sbStatus.Color := clMoneyGreen;
     if not tReconnect.Enabled then
     begin
@@ -163,8 +160,10 @@ begin
       tReconnect.Enabled := True;
     end;
   end;
+
   sbStatus.Panels.Items[0].Text :=
     gm.user.Name + ' ' + status;
+  fChat.Caption := FORM_CAPTION + ' ' + status;
 
 end;
 

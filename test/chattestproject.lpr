@@ -3,7 +3,7 @@ program chattestproject;
 {$mode objfpc}{$H+}
 
 uses
-  cthreads, Interfaces, Forms, GuiTestRunner, test, TorLauncher, bridges;
+  cthreads, Interfaces, Forms, GuiTestRunner, test;
 
 {$R *.res}
 

@@ -29,10 +29,18 @@ type
     lMessageInfo: TLabel;
   end;
 
-const
-  GUI_ELEMENT_NAME_LENGTH = 128;
+  function GetNewGuiNumber : Uint64;
 
 implementation
+
+var
+  GuiElementCounter : Uint64 = 0;
+
+function GetNewGuiNumber: Uint64;
+begin
+  inc(GuiElementCounter);
+  Result := GuiElementCounter;
+end;
 
 end.
 

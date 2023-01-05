@@ -114,11 +114,11 @@ begin
     lMessageInfo.Parent := FParentScrollBox;
 
     pMessagePanel.Name :=
-      'messagepanel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+      'messagepanel' + IntToStr(GetNewGuiNumber);
     lMessageLabel.Name :=
-      'messagelabel' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+      'messagelabel' + IntToStr(GetNewGuiNumber);
     lMessageInfo.Name :=
-      'messageinfo' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+      'messageinfo' + IntToStr(GetNewGuiNumber);
 
     if FMessage is TTextMessage then
     begin
@@ -136,6 +136,16 @@ begin
         FPrevGUIMessage.FMessageGUIElements.lMessageInfo;
       pMessagePanel.AnchorSideTop.Side := asrBottom;
       lMessageInfo.AnchorSideTop.Control := pMessagePanel;
+    end;
+
+    if FMessage.Direction = TMessageDirection.MD_Outgoing then
+    begin
+      pMessagePanel.Anchors:= [akRight, akTop];
+      pMessagePanel.AnchorSideRight.Side := asrRight;
+      pMessagePanel.AnchorSideRight.Control := FParentScrollBox;
+      lMessageInfo.Anchors:= [akRight, akTop];
+      lMessageInfo.AnchorSideRight.Side := asrRight;
+      lMessageInfo.AnchorSideRight.Control := pMessagePanel;
     end;
 
   end;
@@ -165,7 +175,7 @@ var
   prev: TGUIMessage;
 begin
   prev := nil;
-  if (self.Count > 1) then prev := self.Items[self.Count - 1];
+  if (self.Count > 0) then prev := self.Items[self.Count - 1];
   Result := inherited Add(TGUIMessage.Create(
     aMessage, self.FMessagesScrollBox, prev, FGUITemplate));
 
@@ -185,14 +195,14 @@ begin
   stream.Position := 0;
 
   FGUITemplate.sbMessagesScrollBoxTemplate.Name :=
-    'scrollbox' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+    'scrollbox' + IntToStr(GetNewGuiNumber);
 
   FMessagesScrollBox :=
     TScrollBox.Create(FGUITemplate.pParentPanel);
 
   stream.ReadComponent(FMessagesScrollBox);
   FMessagesScrollBox.Name :=
-    'scrollbox' + RandomString(GUI_ELEMENT_NAME_LENGTH);
+    'scrollbox' + IntToStr(GetNewGuiNumber);
 
   FMessagesScrollBox.Parent := FGUITemplate.pParentPanel;
 
@@ -209,7 +219,6 @@ begin
   FChatContact := aChatContact;
   FGUITemplate := aGUITemplate;
   CreateScrollBox;
-  //todo скопировать все имеющиеся сообщения из aChatContact в лист
   for I := 0 to aChatContact.Messages.Count - 1 do
   begin
     self.Add(aChatContact.Messages.Items[I]);

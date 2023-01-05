@@ -4,6 +4,10 @@ unit ChatProtocol;
 
 interface
 
+{$IFOPT D+}
+  {$DEFINE ChatProtocolLog}
+{$ENDIF}
+
 uses
   Classes, SysUtils, Unix, LbRSA, ChatContact, ChatMessage,
   ChatMessageList, ChatConnection;
@@ -24,20 +28,16 @@ const
   IO_SOCKET_TIMEOUT = 50000;
 
 {read|write to socket}
-function recvTimeOut(s: cint; buf: pointer; len: size_t;
-  flags: cint; aTimeOut: integer; thread : TChatConnection): ssize_t;
-function sendTimeOut(s: cint; msg: pointer; len: size_t;
-  flags: cint; aTimeOut: integer): ssize_t;
+function recvTimeOut(s: cint; buf: pointer; len: size_t; flags: cint;
+  aTimeOut: integer; thread: TChatConnection): ssize_t;
+function sendTimeOut(s: cint; msg: pointer; len: size_t; flags: cint;
+  aTimeOut: integer): ssize_t;
 function ReadDWordFromSocket(aSock: longint): DWORD;
-function ReadBytesFromSocket(aSock: longint; msg: pointer;
-  len: size_t): ssize_t;
+function ReadBytesFromSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
 procedure WriteDWordToSocket(aSock: longint; aValue: DWORD);
-function WriteBytesToSocket(aSock: longint; msg: pointer;
-  len: size_t): ssize_t;
-procedure WriteStreamToSocket(aSocket: longint;
-  aSource: TMemoryStream);
-procedure ReadStreamFromSocket(aSocket: longint;
-  aSource: TMemoryStream);
+function WriteBytesToSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
+procedure WriteStreamToSocket(aSocket: longint; aSource: TMemoryStream);
+procedure ReadStreamFromSocket(aSocket: longint; aSource: TMemoryStream);
 {read|write to socket}
 
 {rsa and session key functions}
@@ -48,53 +48,44 @@ procedure WritePublicKey(aSocket: longint; aRSAKey: TLbRSA);
 procedure ReadPublicKey(aSocket: longint; aRSAKey: TLbRSA);
 procedure SetSessionKey(aSocket: longint; aContact: TChatContact);
 procedure ReadSessionKey(aSocket: longint; aContact: TChatContact);
-procedure WriteSelfLinkToSocket(aSocket: longint;
-  aContact: TChatContact);
-procedure ReadContactLinkFromSocket(aSocket: longint;
-  aContact: TChatContact);
-procedure CheckRSAWriteString(aSocket: longint;
-  aSource: string; aRSAKey: TLbRSA);
-function CheckRSAReadString(aSocket: longint;
-  aRSAKey: TLbRSA): string;
-procedure ReadMaxProtocolVersion(aSocket: longint;
-  aContact: TChatContact);
-procedure SendMaxProtocolVersion(aSocket: longint;
-  aContact: TChatContact);
+procedure WriteSelfLinkToSocket(aSocket: longint; aContact: TChatContact);
+procedure ReadContactLinkFromSocket(aSocket: longint; aContact: TChatContact);
+procedure CheckRSAWriteString(aSocket: longint; aSource: string; aRSAKey: TLbRSA);
+function CheckRSAReadString(aSocket: longint; aRSAKey: TLbRSA): string;
+procedure ReadMaxProtocolVersion(aSocket: longint; aContact: TChatContact);
+procedure SendMaxProtocolVersion(aSocket: longint; aContact: TChatContact);
 {rsa and session key functions}
 
 {messages functions}
 function getTransfer(aSocket: longint): TTranferType;
 procedure ReportPresenceMessage(aSocket: longint);
-procedure ReadMessagesFromSocket(aSocket: longint;
-  aContact: TChatContact);
-procedure WriteMessagesToSocket(aSocket: longint;
-  aContact: TChatContact);
-procedure WriteMessageToSocket(aSocket: longint;
-  aMessage: TChatMessage; aKey: string);
-procedure ReadMessageFromSocket(aSocket: longint;
-  aMessageList: TChatMessageList; aKey: string);
+procedure ReadMessagesFromSocket(aSocket: longint; aContact: TChatContact);
+procedure WriteMessagesToSocket(aSocket: longint; aContact: TChatContact);
+procedure WriteMessageToSocket(aSocket: longint; aMessage: TChatMessage; aKey: string);
+procedure ReadMessageFromSocket(aSocket: longint; aMessageList: TChatMessageList;
+  aKey: string);
 {messages functions}
 
 {encript|decript functions}
 procedure EncriptStream(aSource, aDest: TStream; aKey: string);
 procedure DecriptStream(aSource, aDest: TStream; aKey: string);
-procedure WriteEncriptedStreamToSocket(aSocket: longint;
-  aSource: TStream; aKey: string);
-procedure ReadDecriptedStreamFromSocket(aSocket: longint;
-  aDest: TStream; aKey: string);
-procedure WriteDWordEncripted(aSocket: longint; aVar: DWORD;
+procedure WriteEncriptedStreamToSocket(aSocket: longint; aSource: TStream;
   aKey: string);
+procedure ReadDecriptedStreamFromSocket(aSocket: longint; aDest: TStream; aKey: string);
+procedure WriteDWordEncripted(aSocket: longint; aVar: DWORD; aKey: string);
 function ReadDWordDecripted(aSocket: longint; aKey: string): DWORD;
 {encript|decript functions}
 
 {links functions}
-function ConnectToSocks5Host(aHost: string;
-  aHostPort, aSocksPort: longint; aConnection : TChatConnection): longint;
-function LinkFromTorHostAndPort(aHost: string;
-  aOnionPort: word): string;
+function ConnectToSocks5Host(aHost: string; aHostPort, aSocksPort: longint;
+  aConnection: TChatConnection): longint;
+function LinkFromTorHostAndPort(aHost: string; aOnionPort: word): string;
 function TorHostFromLink(aLink: string): string;
 function TorOnionPortFromLink(aLink: string): word;
 {links functions}
+
+{log functions}
+procedure ProgramLogProtocol(aText: string);
 
 implementation
 
@@ -102,8 +93,8 @@ uses LbAsym, Sockets, ChatFunctions,
   LbRandom, DCPrijndael, DCPsha256,
   BaseUnix, ChatUser, DCPblowfish;
 
-function recvTimeOut(s: cint; buf: pointer; len: size_t;
-  flags: cint; aTimeOut: integer; thread : TChatConnection): ssize_t;
+function recvTimeOut(s: cint; buf: pointer; len: size_t; flags: cint;
+  aTimeOut: integer; thread: TChatConnection): ssize_t;
 var
   workTime: integer;
   def_flags: cint;
@@ -111,7 +102,7 @@ var
   vLen: size_t;
   vRes: integer;
 begin
-  ProgramLogInfo('recvTimeOut begin ' + IntToStr(len) + ' byte');
+  ProgramLogProtocol('recvTimeOut begin ' + IntToStr(len) + ' byte');
   workTime := 0;
   Result := 0;
 
@@ -125,12 +116,9 @@ begin
 
     while (workTime < aTimeOut) and not thread.CheckTerminated do
     begin
-      //ProgramLogInfo('Try to fprecv ' + IntToStr(vLen) + ' byte');
       vRes := fprecv(s, vBuf, vLen, flags);
-      //ProgramLogInfo('fprecv ' + IntToStr(vRes) + ' byte');
       if (vRes = 0) then
-        raise EChatNet.Create(
-          'fprecv return 0 in non block mode')
+        raise EChatNet.Create('fprecv return 0 in non block mode')
       else if (vRes > 0) then
       begin
         Result += vRes;
@@ -146,14 +134,14 @@ begin
 
   finally
     FpFcntl(s, F_SetFl, def_flags);
-    ProgramLogInfo('recvTimeOut return ' + IntToStr(
-      Result) + ' byte, after ' + IntToStr(workTime div 1000) + ' sec');
+    ProgramLogProtocol('recvTimeOut return ' + IntToStr(Result) +
+      ' byte, after ' + IntToStr(workTime div 1000) + ' sec');
   end;
 
 end;
 
-function sendTimeOut(s: cint; msg: pointer; len: size_t;
-  flags: cint; aTimeOut: integer): ssize_t;
+function sendTimeOut(s: cint; msg: pointer; len: size_t; flags: cint;
+  aTimeOut: integer): ssize_t;
 var
   workTime: integer;
   def_flags: cint;
@@ -164,13 +152,12 @@ begin
   def_flags := FpFcntl(s, F_GetFl, 0);
   FpFcntl(s, F_SetFl, def_flags or O_NONBLOCK);
   try
-
+    ProgramLogProtocol('sendTimeOut begin ' + IntToStr(len) + ' byte');
     while (workTime < aTimeOut) do
     begin
       Result := fpsend(s, msg, len, flags);
       if Result = 0 then
-        raise EChatNet.Create(
-          'fpsend return 0 in non block mode');
+        raise EChatNet.Create('fpsend return 0 in non block mode');
       if Result > 0 then
         break;
 
@@ -187,65 +174,72 @@ end;
 {read|write to socket}
 function ReadDWordFromSocket(aSock: longint): DWORD;
 begin
+  ProgramLogProtocol('ReadDWordFromSocket begin 4 byte');
   if not (fprecv(aSock, @Result, 4, 0) = 4) then
   begin
-    raise EChatNet.Create(
-      'ReadDWordFromSocket read not 4 byte');
+    raise EChatNet.Create('ReadDWordFromSocket read not 4 byte');
+  end
+  else
+  begin
+    ProgramLogProtocol('ReadDWordFromSocket send 4 byte');
   end;
 end;
 
-function ReadBytesFromSocket(aSock: longint; msg: pointer;
-  len: size_t): ssize_t;
+function ReadBytesFromSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
 begin
+  ProgramLogProtocol('ReadBytesFromSocket begin ' + IntToStr(len) + ' byte');
   Result := fprecv(aSock, msg, len, 0);
+  ProgramLogProtocol('ReadBytesFromSocket result ' + IntToStr(Result) + ' byte');
 end;
 
 procedure WriteDWordToSocket(aSock: longint; aValue: DWORD);
 begin
+  ProgramLogProtocol('WriteDWordToSocket begin 4 byte');
   if not WriteBytesToSocket(aSock, @aValue, 4) = 4 then
-    raise EChatNet.Create(
-      'WriteDWordToSocket write not 4 byte');
+    raise EChatNet.Create('WriteDWordToSocket write not 4 byte');
 end;
 
-function WriteBytesToSocket(aSock: longint; msg: pointer;
-  len: size_t): ssize_t;
+function WriteBytesToSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
 begin
+  ProgramLogProtocol('WriteBytesToSocket begin ' + IntToStr(len) + ' byte');
   Result := fpsend(aSock, msg, len, 0);
+  ProgramLogProtocol('WriteBytesToSocket result ' + IntToStr(Result) + ' byte');
 end;
 
-procedure WriteStreamToSocket(aSocket: longint;
-  aSource: TMemoryStream);
+procedure WriteStreamToSocket(aSocket: longint; aSource: TMemoryStream);
 begin
   aSource.Position := 0;
   try
+    ProgramLogProtocol('WriteStreamToSocket begin ' + IntToStr(aSource.Size) + ' byte');
+    ProgramLogProtocol('WriteStreamToSocket write size to socket');
     WriteDWordToSocket(aSocket, aSource.Size);
   except
     on E: EChatNet do
-      raise EChatNet.Create(
-        'WriteStreamToSocket exception ' + E.Message);
+      raise EChatNet.Create('WriteStreamToSocket exception ' + E.Message);
   end;
 
-  if not WriteBytesToSocket(aSocket, aSource.Memory, aSource.Size) =
-    aSource.Size then raise EChatNet.Create(
-      'Stream not sended in socket');
+  ProgramLogProtocol('WriteStreamToSocket write stream to socket');
+  if not WriteBytesToSocket(aSocket, aSource.Memory, aSource.Size) = aSource.Size then
+    raise EChatNet.Create('Stream not sended in socket');
 end;
 
-procedure ReadStreamFromSocket(aSocket: longint;
-  aSource: TMemoryStream);
+procedure ReadStreamFromSocket(aSocket: longint; aSource: TMemoryStream);
 var
   readSize: DWORD;
 begin
   aSource.Position := 0;
   try
+    ProgramLogProtocol('ReadStreamFromSocket start');
     readSize := ReadDWordFromSocket(aSocket);
+    ProgramLogProtocol('ReadStreamFromSocket size readed ' +
+      IntToStr(readSize) + ' bytes');
   except
     on E: EChatNet do
-      raise EChatNet.Create(
-        'ReadStreamFromSocket exception ' + E.Message);
+      raise EChatNet.Create('ReadStreamFromSocket exception ' + E.Message);
   end;
   aSource.SetSize(readSize);
-  if not ReadBytesFromSocket(aSocket, aSource.Memory,
-    aSource.Size) = readSize then
+  ProgramLogProtocol('ReadStreamFromSocket start read stream');
+  if not ReadBytesFromSocket(aSocket, aSource.Memory, aSource.Size) = readSize then
     raise EChatNet.Create('Stream not readed from socket');
 end;
 
@@ -256,12 +250,12 @@ end;
 procedure SendIsNewContact(aSocket: longint);
 begin
   try
+    ProgramLogProtocol('SendIsNewContact start TTIsNewContact');
     WriteDWordToSocket(aSocket, Ord(TTIsNewContact));
   except
     on E: EChatNet do
     begin
-      raise EChatNet.Create(
-        'SendIsNewContact exception ' + E.Message);
+      raise EChatNet.Create('SendIsNewContact exception ' + E.Message);
     end;
   end;
 end;
@@ -269,12 +263,12 @@ end;
 procedure SendIsOldContact(aSocket: longint);
 begin
   try
+    ProgramLogProtocol('SendIsOldContact start TTIsOldContact');
     WriteDWordToSocket(aSocket, Ord(TTIsOldContact));
   except
     on E: EChatNet do
     begin
-      raise EChatNet.Create(
-        'SendIsOldContact exception ' + E.Message);
+      raise EChatNet.Create('SendIsOldContact exception ' + E.Message);
     end;
   end;
 end;
@@ -285,22 +279,28 @@ var
 begin
 
   try
+    ProgramLogProtocol('ReadIsNewContact start');
     v := ReadDWordFromSocket(aSocket);
+    ProgramLogProtocol('ReadIsNewContact recived code ' + IntToStr(v));
   except
     on E: EChatNet do
     begin
-      raise EChatNet.Create(
-        'ReadIsNewContact exception ' + E.Message);
+      raise EChatNet.Create('ReadIsNewContact exception ' + E.Message);
     end;
   end;
 
   if v = Ord(TTIsNewContact) then
-    Result := True
+  begin
+    Result := True;
+    ProgramLogProtocol('Is new contact');
+  end
   else if v = Ord(TTIsOldContact) then
-    Result := False
+  begin
+    Result := False;
+    ProgramLogProtocol('Is old contact');
+  end
   else
-    raise EChatNet.Create(
-      'Error, contact not send info: new or old');
+    raise EChatNet.Create('Error, contact not send info: new or old');
 end;
 
 procedure WritePublicKey(aSocket: longint; aRSAKey: TLbRSA);
@@ -309,6 +309,7 @@ var
 begin
   Source := TMemoryStream.Create;
   try
+    ProgramLogProtocol('WritePublicKey start');
     Source.WriteByte(Ord(aRSAKey.KeySize));
     Source.WriteAnsiString(aRSAKey.Name);
     Source.WriteAnsiString(aRSAKey.PublicKey.ModulusAsString);
@@ -319,10 +320,10 @@ begin
     except
       on E: EChatNet do
       begin
-        raise EChatNet.Create(
-          'WritePublicKey exception ' + E.Message);
+        raise EChatNet.Create('WritePublicKey exception ' + E.Message);
       end;
     end;
+    ProgramLogProtocol('WritePublicKey write steam to socked');
     WriteStreamToSocket(aSocket, Source);
   finally
     Source.Free;
@@ -336,12 +337,12 @@ var
 begin
 
   try
+    ProgramLogProtocol('ReadPublicKey start');
     v := ReadDWordFromSocket(aSocket);
   except
     on E: EChatNet do
     begin
-      raise EChatNet.Create(
-        'ReadPublicKey exception ' + E.Message);
+      raise EChatNet.Create('ReadPublicKey exception ' + E.Message);
     end;
   end;
 
@@ -350,8 +351,8 @@ begin
   Source := TMemoryStream.Create;
 
   try
+    ProgramLogProtocol('ReadPublicKey read stream start');
     ReadStreamFromSocket(aSocket, Source);
-
     aRSAKey.KeySize := TLbAsymKeySize(Source.ReadByte);
     aRSAKey.Name := Source.ReadAnsiString;
     aRSAKey.PublicKey.ModulusAsString := Source.ReadAnsiString;
@@ -367,9 +368,12 @@ var
   encriptedSessionKey: string;
   Source: TMemoryStream;
 begin
+  ProgramLogProtocol('SetSessionKey start');
+
   aContact.SessionKey := RandomString(SESSION_KEY_SIZE);
   encriptedSessionKey :=
     aContact.ContactRSAKey.EncryptString(aContact.SessionKey);
+  ProgramLogProtocol('SetSessionKey SessionKey is "' + aContact.SessionKey + '"');
 
   Source := TMemoryStream.Create;
   try
@@ -379,10 +383,10 @@ begin
     except
       on E: EChatNet do
       begin
-        raise EChatNet.Create(
-          'SetSessionKey exception ' + E.Message);
+        raise EChatNet.Create('SetSessionKey exception ' + E.Message);
       end;
     end;
+    ProgramLogProtocol('SetSessionKey write key to stream');
     WriteStreamToSocket(aSocket, Source);
   finally
     Source.Free;
@@ -397,12 +401,12 @@ var
 begin
 
   try
+    ProgramLogProtocol('ReadSessionKey start');
     v := ReadDWordFromSocket(aSocket);
   except
     on E: EChatNet do
     begin
-      raise EChatNet.Create(
-        'ReadSessionKey exception ' + E.Message);
+      raise EChatNet.Create('ReadSessionKey exception ' + E.Message);
     end;
   end;
 
@@ -411,12 +415,13 @@ begin
 
   Source := TMemoryStream.Create;
   try
+    ProgramLogProtocol('ReadSessionKey read stream from socked');
     ReadStreamFromSocket(aSocket, Source);
 
     encriptedSessionKey := Source.ReadAnsiString;
     decryptedSessionKey :=
-      TChatUser(aContact.User).Key.DecryptString(
-      encriptedSessionKey);
+      TChatUser(aContact.User).Key.DecryptString(encriptedSessionKey);
+    ProgramLogProtocol('ReadSessionKey read key "' + decryptedSessionKey + '"');
     aContact.SessionKey := decryptedSessionKey;
 
   finally
@@ -425,14 +430,13 @@ begin
 
 end;
 
-procedure WriteSelfLinkToSocket(aSocket: longint;
-  aContact: TChatContact);
+procedure WriteSelfLinkToSocket(aSocket: longint; aContact: TChatContact);
 var
   Source: TMemoryStream;
 begin
 
   Source := TMemoryStream.Create;
-
+  ProgramLogProtocol('WriteSelfLinkToSocket start');
   try
 
     try
@@ -440,12 +444,12 @@ begin
     except
       on E: EChatNet do
       begin
-        raise EChatNet.Create(
-          'WriteSelfLinkToSocket exception ' + E.Message);
+        raise EChatNet.Create('WriteSelfLinkToSocket exception ' + E.Message);
       end;
     end;
 
     Source.WriteAnsiString(TChatUser(aContact.User).getLink);
+    ProgramLogProtocol('WriteSelfLinkToSocket write encripted link to socked');
     WriteEncriptedStreamToSocket(aSocket,
       Source, aContact.SessionKey);
   finally
@@ -453,19 +457,18 @@ begin
   end;
 end;
 
-procedure ReadContactLinkFromSocket(aSocket: longint;
-  aContact: TChatContact);
+procedure ReadContactLinkFromSocket(aSocket: longint; aContact: TChatContact);
 var
   Source: TMemoryStream;
   v: DWORD;
 begin
 
+  ProgramLogProtocol('ReadContactLinkFromSocket start');
   try
     v := ReadDWordFromSocket(aSocket);
   except
     on E: EChatNet do
-      raise EChatNet.Create(
-        'ReadContactLinkFromSocket exception ' + E.Message);
+      raise EChatNet.Create('ReadContactLinkFromSocket exception ' + E.Message);
   end;
 
   if not (v = Ord(TTSendOnionLink)) then
@@ -473,16 +476,18 @@ begin
 
   Source := TMemoryStream.Create;
   try
+
     ReadDecriptedStreamFromSocket(aSocket, Source,
       aContact.SessionKey);
     aContact.ContactLink := Source.ReadAnsiString;
+    ProgramLogProtocol('ReadContactLinkFromSocket read link - "' +
+      aContact.ContactLink + '"');
   finally
     Source.Free;
   end;
 end;
 
-procedure CheckRSAWriteString(aSocket: longint;
-  aSource: string; aRSAKey: TLbRSA);
+procedure CheckRSAWriteString(aSocket: longint; aSource: string; aRSAKey: TLbRSA);
 var
   encripted: string;
   Source: TMemoryStream;
@@ -496,8 +501,7 @@ begin
       WriteDWordToSocket(aSocket, Ord(TTCheckRSA));
     except
       on E: EChatNet do
-        raise EChatNet.Create(
-          'CheckRSAWriteString exception ' + E.Message);
+        raise EChatNet.Create('CheckRSAWriteString exception ' + E.Message);
     end;
     WriteStreamToSocket(aSocket, Source);
   finally
@@ -505,8 +509,7 @@ begin
   end;
 end;
 
-function CheckRSAReadString(aSocket: longint;
-  aRSAKey: TLbRSA): string;
+function CheckRSAReadString(aSocket: longint; aRSAKey: TLbRSA): string;
 var
   Source: TMemoryStream;
   encripted: string;
@@ -519,8 +522,7 @@ begin
     v := ReadDWordFromSocket(aSocket);
   except
     on E: EChatNet do
-      raise EChatNet.Create(
-        'CheckRSAReadString exception ' + E.Message);
+      raise EChatNet.Create('CheckRSAReadString exception ' + E.Message);
   end;
 
   if not (v = Ord(TTCheckRSA)) then
@@ -539,8 +541,7 @@ begin
 
 end;
 
-procedure ReadMaxProtocolVersion(aSocket: longint;
-  aContact: TChatContact);
+procedure ReadMaxProtocolVersion(aSocket: longint; aContact: TChatContact);
 var
   Packet: TMemoryStream;
   maxTT, maxMC, transfers: DWORD;
@@ -558,10 +559,9 @@ begin
     aContact.SetMaxProtocolVersion(maxTT, maxMC);
 
     if transfers > PROTOCOL_VERSION_TRANSFERS then
-      ProgramLogInfo('Contact ' + aContact.ContactRSAKey.Name +
-        ' send ' + IntToStr(transfers) +
-        ' instead PROTOCOL_VERSION_TRANSFERS=' + IntToStr(
-        PROTOCOL_VERSION_TRANSFERS));
+      ProgramLogProtocol('Contact ' + aContact.ContactRSAKey.Name +
+        ' send ' + IntToStr(transfers) + ' instead PROTOCOL_VERSION_TRANSFERS=' +
+        IntToStr(PROTOCOL_VERSION_TRANSFERS));
 
   finally
     Packet.Free;
@@ -569,8 +569,7 @@ begin
 
 end;
 
-procedure SendMaxProtocolVersion(aSocket: longint;
-  aContact: TChatContact);
+procedure SendMaxProtocolVersion(aSocket: longint; aContact: TChatContact);
 var
   Packet: TMemoryStream;
 begin
@@ -624,8 +623,7 @@ begin
   WriteDWordToSocket(aSocket, Ord(TTPresenseMessages));
 end;
 
-procedure ReadMessagesFromSocket(aSocket: longint;
-  aContact: TChatContact);
+procedure ReadMessagesFromSocket(aSocket: longint; aContact: TChatContact);
 var
   I, countToRead: integer;
 begin
@@ -639,8 +637,7 @@ begin
 
 end;
 
-procedure WriteMessagesToSocket(aSocket: longint;
-  aContact: TChatContact);
+procedure WriteMessagesToSocket(aSocket: longint; aContact: TChatContact);
 var
   I, countToSend, sended: integer;
 begin
@@ -687,8 +684,7 @@ begin
 
 end;
 
-procedure WriteMessageToSocket(aSocket: longint;
-  aMessage: TChatMessage; aKey: string);
+procedure WriteMessageToSocket(aSocket: longint; aMessage: TChatMessage; aKey: string);
 var
   Packet: TMemoryStream;
 begin
@@ -702,8 +698,8 @@ begin
   end;
 end;
 
-procedure ReadMessageFromSocket(aSocket: longint;
-  aMessageList: TChatMessageList; aKey: string);
+procedure ReadMessageFromSocket(aSocket: longint; aMessageList: TChatMessageList;
+  aKey: string);
 var
   Packet: TMemoryStream;
   MCode: TMessageCode;
@@ -717,8 +713,7 @@ begin
     case MCode of
       MC_TextMessage:
       begin
-        Message := TTextMessage.UnpackFromSocketStream(Packet,
-          MD_Incoming);
+        Message := TTextMessage.UnpackFromSocketStream(Packet, MD_Incoming);
         aMessageList.Add(Message);
       end;
       else
@@ -742,7 +737,7 @@ var
 begin
   Cipher := TDCP_rijndael.Create(nil);
   if Cipher.SelfTest then
-     WriteLn('Yes');
+    WriteLn('Yes');
   try
     aSource.Position := 0;
     aDest.Position := 0;
@@ -774,8 +769,8 @@ begin
   end;
 end;
 
-procedure WriteEncriptedStreamToSocket(aSocket: longint;
-  aSource: TStream; aKey: string);
+procedure WriteEncriptedStreamToSocket(aSocket: longint; aSource: TStream;
+  aKey: string);
 var
   Encripted: TMemoryStream;
 begin
@@ -790,8 +785,7 @@ begin
   end;
 end;
 
-procedure ReadDecriptedStreamFromSocket(aSocket: longint;
-  aDest: TStream; aKey: string);
+procedure ReadDecriptedStreamFromSocket(aSocket: longint; aDest: TStream; aKey: string);
 var
   Source: TMemoryStream;
 begin
@@ -804,8 +798,7 @@ begin
   end;
 end;
 
-procedure WriteDWordEncripted(aSocket: longint; aVar: DWORD;
-  aKey: string);
+procedure WriteDWordEncripted(aSocket: longint; aVar: DWORD; aKey: string);
 var
   Source: TMemoryStream;
 begin
@@ -838,8 +831,8 @@ end;
 {encript|decript functions}
 
 {links functions}
-function ConnectToSocks5Host(aHost: string;
-  aHostPort, aSocksPort: longint; aConnection : TChatConnection): longint;
+function ConnectToSocks5Host(aHost: string; aHostPort, aSocksPort: longint;
+  aConnection: TChatConnection): longint;
 var
   SAddr: TInetSockAddr;
   Buffer: array[0..1024] of byte;
@@ -850,7 +843,7 @@ begin
   Result := -1;
   s := fpSocket(AF_INET, SOCK_STREAM, IPPROTO_IP);
 
-  ProgramLogInfo('ConnectToSocks5Host create sock ' + IntToStr(s));
+  ProgramLogProtocol('ConnectToSocks5Host create sock ' + IntToStr(s));
 
   if s = -1 then
   begin
@@ -867,8 +860,7 @@ begin
     end;
 
     if fpconnect(s, @SAddr, sizeof(SAddr)) = -1 then
-      raise EChatNet.Create(
-        'fpconnect return -1, code  SocketError ' +
+      raise EChatNet.Create('fpconnect return -1, code  SocketError ' +
         IntToStr(SocketError));
 
     //connect
@@ -882,8 +874,8 @@ begin
     //answer
     //BYTE Version = 5
     //BYTE method = 0
-    if not (recvTimeOut(s, @Buffer[0], 2, 0,
-      IO_SOCKET_TIMEOUT,aConnection) = 2) then
+    if not (recvTimeOut(s, @Buffer[0], 2, 0, IO_SOCKET_TIMEOUT,
+      aConnection) = 2) then
       raise EChatNet.Create('first answer size error');
 
     if not (Buffer[0] = 5) or not (Buffer[1] = 0) then
@@ -911,8 +903,8 @@ begin
     //BYTE Version = 5
     //BYTE Rep = 0 - Ok
     //.......
-    if not (recvTimeOut(s, @Buffer[0], 10, 0,
-      IO_SOCKET_TIMEOUT, aConnection) = 10) then
+    if not (recvTimeOut(s, @Buffer[0], 10, 0, IO_SOCKET_TIMEOUT,
+      aConnection) = 10) then
       raise EChatNet.Create('second answer size error');
 
     if not (Buffer[0] = 5) or not (Buffer[1] = 0) then
@@ -925,18 +917,16 @@ begin
   except
     on E: EChatNet do
     begin
-      ProgramLogInfo('ConnectToSocks5Host closed ' +
-        IntToStr(s) + ', message ' + E.Message);
+      ProgramLogProtocol('ConnectToSocks5Host closed ' + IntToStr(s) +
+        ', message ' + E.Message);
       CloseSocket(s);
-      raise EChatNet.Create(
-        'ConnectToSocks5Host exception: ' + E.Message);
+      raise EChatNet.Create('ConnectToSocks5Host exception: ' + E.Message);
     end;
   end;
 
 end;
 
-function LinkFromTorHostAndPort(aHost: string;
-  aOnionPort: word): string;
+function LinkFromTorHostAndPort(aHost: string; aOnionPort: word): string;
 begin
   Result := Copy(aHost, 0, Length(aHost) - 6);
   if not (aOnionPort = DEFAULT_ONION_PORT) then
@@ -976,5 +966,13 @@ begin
 end;
 
 {links functions}
+
+{log functions}
+procedure ProgramLogProtocol(aText: string);
+begin
+  {$IFDEF ChatProtocolLog}
+     ProgramLogDebug(aText);
+  {$ENDIF}
+end;
 
 end.
