@@ -20,6 +20,7 @@ type
     FCode: TMessageCode;
     FDataLength: DWORD;
     FDirection: TMessageDirection;
+    FTimeCreated : TDateTime;
 
   public
     constructor Create(aDirection: TMessageDirection);
@@ -34,6 +35,7 @@ type
     property Sended: boolean read FSended write FSended;
     property Direction: TMessageDirection read FDirection;
     property Code: TMessageCode read FCode;
+    property Date: TDateTime read FTimeCreated;
 
   end;
 
@@ -67,6 +69,7 @@ begin
   FCode := MC_Non;
   FDataLength := 0;
   FDirection := aDirection;
+  FTimeCreated := Now;
   if (aDirection = MD_Incoming) then FSended := True
   else
     FSended := False;
@@ -114,6 +117,7 @@ begin
 
   self.Create(mtext,dir);
   FSended := sen;
+  FTimeCreated := aStream.ReadQWord;
 end;
 
 procedure TTextMessage.PackToStream(aStream: TStream);
@@ -122,6 +126,7 @@ begin
   aStream.WriteAnsiString(FText);
   aStream.WriteByte(Ord(FDirection));
   aStream.WriteByte(Byte(FSended));
+  aStream.WriteQWord(QWord(FTimeCreated));
 end;
 
 procedure TTextMessage.PackToSocketStream(aStream: TStream);

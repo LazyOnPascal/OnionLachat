@@ -123,7 +123,9 @@ begin
     if FMessage is TTextMessage then
     begin
       lMessageLabel.Caption := TTextMessage(FMessage).Text;
+      lMessageInfo.Caption:= FormatDateTime('dd.mm.yy, hh:nn', FMessage.Date);
     end;
+
 
     //lMessageLabel.AutoSize:=true;
 
