@@ -286,7 +286,7 @@ begin
   if not assigned(FUser) or FUser.Error or not FUser.Tor.ready then
     exit;
   Clipboard.AsText := gm.user.getLink;
-  ShowMessage('Link "' + gm.user.getLink + '" in you clipart.');
+  ShowMessage('Link has been copied to the clipboard');
 end;
 
 procedure TGUIMaster.ReconnectConntact;

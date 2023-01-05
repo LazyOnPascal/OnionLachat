@@ -1,7 +1,7 @@
 object fChat: TfChat
-  Left = 891
+  Left = 888
   Height = 1211
-  Top = 156
+  Top = 176
   Width = 1534
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
@@ -211,7 +211,7 @@ object fChat: TfChat
     Width = 296
     HorzScrollBar.Page = 1
     HorzScrollBar.Visible = False
-    VertScrollBar.Page = 76
+    VertScrollBar.Page = 39
     Anchors = [akTop, akLeft, akBottom]
     BorderSpacing.Left = 40
     BorderSpacing.Top = 21
@@ -227,12 +227,12 @@ object fChat: TfChat
       AnchorSideRight.Control = sbContacts
       AnchorSideRight.Side = asrBottom
       Left = 0
-      Height = 76
+      Height = 39
       Top = 0
       Width = 292
       Anchors = [akTop, akLeft, akRight]
       AutoSize = True
-      ClientHeight = 76
+      ClientHeight = 39
       ClientWidth = 292
       Color = clSilver
       ParentColor = False
@@ -246,14 +246,14 @@ object fChat: TfChat
         AnchorSideRight.Side = asrBottom
         Cursor = crHandPoint
         Left = 11
-        Height = 74
+        Height = 37
         Top = 1
         Width = 270
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 10
         BorderSpacing.Right = 10
-        Caption = 'User long Name Name is very long'
+        Caption = 'User name template'
         ParentColor = False
         WordWrap = True
       end
