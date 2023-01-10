@@ -64,9 +64,11 @@ type
       aMessagesTemplate: TMessageGUITemplateElements);
     procedure Update;
     procedure SendTextInActiveContact(aText: string);
+    procedure Rebuild;
   public
     property Items[Index: integer]: TGUIContact read Get; default;
     property ChatContacts: TChatContactList read FUserContacts;
+    property ActiveMessagesList: TGUIMessageList read FActiveGUIMessageList;
   end;
 
 implementation
@@ -78,7 +80,6 @@ uses
 
 procedure TGUIContact.onClick(Sender: TObject);
 begin
-  //ShowMessage(self.FGUILabel.Caption);
   if not (FSetActivMessagesListProc = nil) then
     FSetActivMessagesListProc(self.FGUIMessageList);
 end;
@@ -107,7 +108,15 @@ begin
   FGUILabel := TLabel.Create(FGUIPanel);
   stream.ReadComponent(FGUIPanel);
   stream.ReadComponent(FGUILabel);
-  FGUILabel.Caption := aUserContact.ContactRSAKey.Name;
+
+  if Length(aUserContact.ContactRSAKey.Name) > 0 then
+    FGUILabel.Caption := aUserContact.ContactRSAKey.Name
+  else if Length(aUserContact.ContactLink) > 0 then
+    FGUILabel.Caption := aUserContact.ContactLink
+  else
+    FGUILabel.Caption := 'New contact';
+
+
   FGUIPanel.Visible := True;
 
 
@@ -314,6 +323,11 @@ begin
     m := TTextMessage.Create(aText);
     FActiveGUIMessageList.ChatContact.Messages.Add(m);
   end;
+end;
+
+procedure TGUIContactList.Rebuild;
+begin
+  FNeedToReBuild := true;
 end;
 
 end.

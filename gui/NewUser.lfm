@@ -94,35 +94,20 @@ object fNewUser: TfNewUser
       TabOrder = 1
       Text = '9065'
     end
-    object lName3: TLabel
-      Left = 24
-      Height = 37
-      Top = 104
-      Width = 123
-      Caption = 'Tor bin dir'
-      ParentColor = False
-    end
-    object eTorBinDir: TEdit
-      Left = 24
-      Height = 51
-      Top = 144
-      Width = 176
-      TabOrder = 2
-    end
     object lName4: TLabel
-      Left = 272
+      Left = 24
       Height = 37
-      Top = 104
+      Top = 112
       Width = 159
       Caption = 'Tor config dir'
       ParentColor = False
     end
     object eTorConfigDir: TEdit
-      Left = 272
+      Left = 24
       Height = 51
-      Top = 144
+      Top = 152
       Width = 176
-      TabOrder = 3
+      TabOrder = 2
       Text = 'torconfigs/000000'
     end
     object cbAutoStart: TCheckBox
@@ -139,7 +124,7 @@ object fNewUser: TfNewUser
       Caption = 'Connect now'
       Checked = True
       State = cbChecked
-      TabOrder = 4
+      TabOrder = 3
     end
   end
   object gbGeneralSettings: TGroupBox

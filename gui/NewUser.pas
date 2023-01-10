@@ -22,7 +22,6 @@ type
     eName: TEdit;
     eHostPort: TEdit;
     eSocksPort: TEdit;
-    eTorBinDir: TEdit;
     eTorConfigDir: TEdit;
     ePassword1: TEdit;
     ePassword2: TEdit;
@@ -33,7 +32,6 @@ type
     lName: TLabel;
     lName1: TLabel;
     lName2: TLabel;
-    lName3: TLabel;
     lName4: TLabel;
     lPassword: TLabel;
     procedure bCreateClick(Sender: TObject);
@@ -67,7 +65,6 @@ begin
   eName.Text:='User'+RandomString(6);
   eHostPort.Text:=IntToStr(DEFAULT_ONION_PORT);
   eSocksPort.Text:=IntToStr(DEFAULT_SOCKS_PORT);
-  eTorBinDir.Text:='';
   eTorConfigDir.Text:='data/'+RandomString(6);
   cbAutoStart.Checked:=true;
 end;
@@ -96,7 +93,7 @@ begin
   gm.pass:=ePassword1.Text;
 
   gm.NewUser(eName.Text, vKeySize, StrToInt(eHostPort.Text),
-  StrToInt(eSocksPort.Text),eTorBinDir.Text,eTorConfigDir.Text,
+  StrToInt(eSocksPort.Text),'',eTorConfigDir.Text,
     TTorBridges.Create(eBridge1.Text,
     eBridge2.Text, eBridge3.Text));
   gm.autostart:= autoSt;

@@ -1,7 +1,7 @@
 object fChat: TfChat
-  Left = 888
+  Left = 917
   Height = 1211
-  Top = 176
+  Top = 72
   Width = 1534
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
@@ -170,44 +170,13 @@ object fChat: TfChat
       end
     end
   end
-  object bNewContact: TButton
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    Left = 40
-    Height = 50
-    Top = 59
-    Width = 50
-    BorderSpacing.Left = 40
-    BorderSpacing.Top = 59
-    Caption = '+'
-    OnClick = bNewContactClick
-    TabOrder = 4
-  end
-  object bCopySelfLink: TButton
-    AnchorSideLeft.Control = bNewContact
-    AnchorSideLeft.Side = asrBottom
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = sbStatus
-    Left = 115
-    Height = 51
-    Top = 59
-    Width = 85
-    BorderSpacing.Left = 25
-    BorderSpacing.Top = 59
-    Caption = 'Link'
-    OnClick = bCopySelfLinkClick
-    TabOrder = 5
-  end
   object sbContacts: TScrollBox
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = bCopySelfLink
-    AnchorSideTop.Side = asrBottom
+    AnchorSideTop.Control = Owner
     AnchorSideBottom.Control = sbStatus
     Left = 40
-    Height = 998
-    Top = 131
+    Height = 1108
+    Top = 21
     Width = 296
     HorzScrollBar.Page = 1
     HorzScrollBar.Visible = False
@@ -216,11 +185,12 @@ object fChat: TfChat
     BorderSpacing.Left = 40
     BorderSpacing.Top = 21
     BorderSpacing.Bottom = 40
-    ClientHeight = 994
+    ClientHeight = 1104
     ClientWidth = 292
     Color = clWhite
     ParentColor = False
-    TabOrder = 6
+    PopupMenu = ContactsMenu
+    TabOrder = 4
     object pContact: TPanel
       AnchorSideLeft.Control = sbContacts
       AnchorSideTop.Control = sbContacts
@@ -262,14 +232,40 @@ object fChat: TfChat
   object tStatusUpdate: TTimer
     Enabled = False
     OnTimer = tStatusUpdateTimer
-    Left = 1016
-    Top = 8
+    Left = 72
+    Top = 360
   end
   object tReconnect: TTimer
     Enabled = False
     Interval = 10000
     OnTimer = tReconnectTimer
-    Left = 1192
-    Top = 16
+    Left = 72
+    Top = 488
+  end
+  object ContactsMenu: TPopupMenu
+    Left = 72
+    Top = 240
+    object MenuNew: TMenuItem
+      Caption = 'New contact'
+      OnClick = MenuNewClick
+    end
+    object MenuSelfLink: TMenuItem
+      Caption = 'Self link'
+      OnClick = MenuSelfLinkClick
+    end
+    object Separator2: TMenuItem
+      Caption = '-'
+    end
+    object MenuInfo: TMenuItem
+      Caption = 'ContactInfo'
+      OnClick = MenuInfoClick
+    end
+    object Separator1: TMenuItem
+      Caption = '-'
+    end
+    object MenuUpdate: TMenuItem
+      Caption = 'Update names'
+      OnClick = MenuUpdateClick
+    end
   end
 end

@@ -52,19 +52,24 @@ type
   { TfChat }
 
   TfChat = class(TForm)
-    bCopySelfLink: TButton;
     bSendMessage: TButton;
-    bNewContact: TButton;
     lContactName: TLabel;
     lMessageText: TLabel;
     lMessageDate: TLabel;
+    MenuNew: TMenuItem;
+    MenuSelfLink: TMenuItem;
+    MenuUpdate: TMenuItem;
+    MenuInfo: TMenuItem;
     mTextInput: TMemo;
     pContact: TPanel;
     pMessage: TPanel;
     pMessages: TPanel;
+    ContactsMenu: TPopupMenu;
     sbMessages: TScrollBox;
     sbStatus: TStatusBar;
     sbContacts: TScrollBox;
+    Separator1: TMenuItem;
+    Separator2: TMenuItem;
     tReconnect: TTimer;
     tStatusUpdate: TTimer;
     procedure bCopySelfLinkClick(Sender: TObject);
@@ -76,6 +81,10 @@ type
     procedure FormShow(Sender: TObject);
     procedure mAutoConnectClick(Sender: TObject);
     procedure mConnectionConnectClick(Sender: TObject);
+    procedure MenuInfoClick(Sender: TObject);
+    procedure MenuNewClick(Sender: TObject);
+    procedure MenuSelfLinkClick(Sender: TObject);
+    procedure MenuUpdateClick(Sender: TObject);
     procedure mNewUserClick(Sender: TObject);
     procedure mSavaDataBaseClick(Sender: TObject);
     procedure mUserClick(Sender: TObject);
@@ -269,6 +278,26 @@ end;
 procedure TfChat.mConnectionConnectClick(Sender: TObject);
 begin
   gm.Connect;
+end;
+
+procedure TfChat.MenuInfoClick(Sender: TObject);
+begin
+  gm.ContactInfo;
+end;
+
+procedure TfChat.MenuNewClick(Sender: TObject);
+begin
+  gm.NewContact;
+end;
+
+procedure TfChat.MenuSelfLinkClick(Sender: TObject);
+begin
+  gm.GetLink;
+end;
+
+procedure TfChat.MenuUpdateClick(Sender: TObject);
+begin
+  gm.UpdateContactList;
 end;
 
 procedure TfChat.mNewUserClick(Sender: TObject);

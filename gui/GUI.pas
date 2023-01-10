@@ -17,7 +17,12 @@ type
   TGUIMaster = class
   private
   const
-    DATABASE_NAME = 'database.chat';
+    {$ifdef Win64}
+       DATABASE_NAME = 'databasewin.chat';
+    {$endif}
+    {$ifdef Unix}
+       DATABASE_NAME = 'database.chat';
+    {$endif}
     DATABASE_TEST_STRING = '|3xpo}[axzx5vx<z';
   var
     FUser: TChatUser;
@@ -42,6 +47,8 @@ type
     procedure UpdateContactsAndMessages;
     procedure GetLink;
     procedure ReconnectConntact;
+    procedure ContactInfo;
+    procedure UpdateContactList;
 
 
   public
@@ -240,8 +247,7 @@ var
   contact: TChatContact;
 begin
   link := '';
-  if InputQuery('New contact', 'Enter link',
-    link) then
+  if InputQuery('New contact', 'Enter link', link) then
   begin
     contact := TChatContact.Create(FUser, link);
     if (FUser.Contacts.Add(contact) = -1) then
@@ -294,6 +300,21 @@ begin
   if not assigned(FUser) or FUser.Error or not FUser.Tor.ready then
     exit;
   FUser.Contacts.CheckForReconnect;
+end;
+
+procedure TGUIMaster.ContactInfo;
+begin
+  if assigned(FGUIContacts.ActiveMessagesList) then
+  begin
+    //открыть инфомацию о выделенном контакте
+    //FGUIContacts.ActiveMessagesList.ChatContact;
+    ShowMessage('WOw');
+  end;
+end;
+
+procedure TGUIMaster.UpdateContactList;
+begin
+  FGUIContacts.Rebuild;
 end;
 
 end.
