@@ -5,7 +5,7 @@ unit TorLauncher;
 interface
 
 uses
-  Classes, SysUtils, Process, Forms;
+  Classes, SysUtils, Process;
 
 type
 
@@ -48,8 +48,8 @@ type
     FFullConsoleOutput: string;
 
   public
-    constructor Create(aTorDir, aWorkDir: string;
-      aOnionPort: word; aSocksPort: word; aBridges: TTorBridges);
+    constructor Create(aTorDir, aWorkDir: string; aOnionPort: word;
+      aSocksPort: word; aBridges: TTorBridges);
     constructor LoadFromStream(aStream: TStream);
     destructor Destroy; override;
 
@@ -66,6 +66,7 @@ type
     procedure CreateGEOIPFile;
     function GetHostName: string;
     procedure InitFiles;
+    procedure KillIfAlreadyRunning;
 
   public
     property ready: boolean read TorReadyToWork;
@@ -83,7 +84,11 @@ type
 implementation
 
 uses
-  FileUtil, BaseUnix, CommonFunctions;
+  FileUtil {$ifdef Unix}, BaseUnix {$endif}, CommonFunctions;
+
+{$ifdef Win64}
+const RT_RCDATA = MAKEINTRESOURCE(10);
+{$endif}
 
 { TTorBridges }
 
@@ -110,10 +115,8 @@ end;
 
 { TTorLauncher }
 
-{ TODO : передовать не локацию tor.exe а локацию со всеми допами тора }
-
-constructor TTorLauncher.Create(aTorDir, aWorkDir: string;
-  aOnionPort: word; aSocksPort: word; aBridges: TTorBridges);
+constructor TTorLauncher.Create(aTorDir, aWorkDir: string; aOnionPort: word;
+  aSocksPort: word; aBridges: TTorBridges);
 begin
   FWorkDir := aWorkDir;
   FOnionPort := aOnionPort;
@@ -126,6 +129,7 @@ begin
   FTorError := False;
   FFullConsoleOutput := '';
   InitFiles; //init tor files
+  KillIfAlreadyRunning;
 end;
 
 constructor TTorLauncher.LoadFromStream(aStream: TStream);
@@ -134,7 +138,6 @@ var
   onion, socks: word;
   b: TTorBridges;
 begin
-  { TODO : сделать распаковку тор хост ключа }
   tor := aStream.ReadAnsiString;
   dir := aStream.ReadAnsiString;
   onion := aStream.ReadWord;
@@ -145,7 +148,6 @@ end;
 
 procedure TTorLauncher.PackToStream(aStream: TStream);
 begin
-  { TODO : сделать запаковку тор хост ключа }
   aStream.WriteAnsiString(FTorDir);
   aStream.WriteAnsiString(FWorkDir);
   aStream.WriteWord(FOnionPort);
@@ -163,16 +165,22 @@ end;
 
 procedure TTorLauncher.InitFiles;
 begin
-  if not ForceDirectories(FWorkDir) or not
-    ForceDirectories(FWorkDir + '/host') or not
-    ForceDirectories(FWorkDir + '/onion-auth') or
-    not (FpChmod(FWorkDir + '/host', S_IRUSR or
-    S_IWUSR or S_IXUSR) = 0) then
+  if not ForceDirectories(FWorkDir) or not ForceDirectories(FWorkDir + '/host') or
+    not ForceDirectories(FWorkDir + '/onion-auth')
+{$ifdef Unix} //проверка что пользователь может писать в папку FWorkDir + '/host'
+    or not (FpChmod(FWorkDir + '/host', S_IRUSR or S_IWUSR or S_IXUSR) = 0)
+{$endif}
+  then
     raise ETorLauncher.Create('Work path error');
 
   CreateGEOIPFile;
 
+  {$ifdef Unix}
   FProcess.Executable := FindDefaultExecutablePath(FTorDir + 'tor');
+  {$endif}
+  {$ifdef Win64}
+  FProcess.Executable := FindDefaultExecutablePath('./tor/tor.exe');
+  {$endif}
   if FProcess.Executable = '' then
     raise ETorLauncher.Create('Tor bin not found');
 
@@ -185,6 +193,44 @@ begin
   BuildTorrcFile;
 end;
 
+procedure TTorLauncher.KillIfAlreadyRunning;
+var
+  FileSize: UInt64;
+  Pid: THandle;
+  PidStr: String;
+  PidFile: TFileStream = nil;
+  PidFileName: String;
+  {$ifdef windows}
+  HProc: THandle;
+  {$endif}
+begin
+  PidFileName := FWorkDir + '/tor.pid';
+  if FileExists(PidFileName) then begin
+    WriteLn('W old Tor process might still be running (tor.pid detected), trying to kill it');
+    try
+      PidFile := TFileStream.Create(PidFileName, fmOpenRead);
+      FileSize := PidFile.Size;
+      SetLength(PidStr, FileSize);
+      PidFile.Read(PidStr[1], FileSize);
+      FreeAndNil(PidFile);
+      Pid := StrToInt64(Trim(PidStr));
+      WriteLn('I sending kill signal to PID ', Pid);
+      {$ifdef windows}
+        HProc := OpenProcess(PROCESS_TERMINATE, False, Pid);
+        TerminateProcess(HProc, 0);
+      {$else}
+        FpKill(Pid, SIGKILL);
+      {$endif}
+      DeleteFile(PidFileName);
+      Sleep(500);
+    except
+      WriteLn('E existing pid file could not be read');
+    end;
+    if Assigned(PidFile) then
+      PidFile.Free;
+  end;
+end;
+
 procedure TTorLauncher.Execute;
 begin
   FProcess.Execute;
@@ -192,8 +238,18 @@ end;
 
 procedure TTorLauncher.KillProcess;
 begin
-  if (FProcess.Running) then
-    FProcess.Terminate(-1);
+  {$ifdef unix}
+    FpKill(FProcess.Handle, SIGINT);
+  {$else}
+    {$ifdef win64}
+      TerminateProcess(FProcess.Handle, 0);
+      DeleteFile(FWorkDir +'tor.pid');
+    {$else}
+      FProcess.Terminate(0);
+      DeleteFile(FWorkDir +'tor.pid');
+    {$endif}
+  {$endif}
+
   Self.FProcess.Free;
   FFullConsoleOutput := '';
 end;
@@ -204,14 +260,12 @@ var
   onion, socks: word;
   b: TTorBridges;
 begin
-  if (FProcess.Running) then
-    FProcess.Terminate(-1);
+  KillProcess;
   tor := FTorDir;
   dir := FWorkDir;
   onion := FOnionPort;
   socks := FSocksPort;
-  b := TTorBridges.Create(FBridges.bridge1, FBridges.bridge2,
-    FBridges.bridge3);
+  b := TTorBridges.Create(FBridges.bridge1, FBridges.bridge2, FBridges.bridge3);
   self.Free;
   self := TTorLauncher.Create(tor, dir, onion, socks, b);
   self.Execute;
@@ -290,18 +344,16 @@ begin
     Writeln(TorccFile, 'Bridge ' + FBridges.bridge2);
   if (FBridges.bridge3.Length > 0) then
     Writeln(TorccFile, 'Bridge ' + FBridges.bridge3);
-  Writeln(TorccFile, 'ClientOnionAuthDir ' + FWorkDir +
-    '/onion-auth');
+  Writeln(TorccFile, 'ClientOnionAuthDir ' + FWorkDir + '/onion-auth');
   Writeln(TorccFile, 'GeoIPFile ' + FWorkDir + '/geoip');
   Writeln(TorccFile, 'GeoIPv6File ' + FWorkDir + '/geoip6');
   Writeln(TorccFile, 'HiddenServiceDir ' + FWorkDir + '/host');
-  Writeln(TorccFile, 'HiddenServicePort ' +
-    IntToStr(FOnionPort) + ' 127.0.0.1:' + IntToStr(FOnionPort));
+  Writeln(TorccFile, 'HiddenServicePort ' + IntToStr(FOnionPort) +
+    ' 127.0.0.1:' + IntToStr(FOnionPort));
   Writeln(TorccFile, 'SocksPort ' + IntToStr(FSocksPort));
 
   //Writeln(TorccFile, 'ProtocolWarnings 1');
-  if (FBridges.bridge1.Length > 0) or
-    (FBridges.bridge2.Length > 0) or
+  if (FBridges.bridge1.Length > 0) or (FBridges.bridge2.Length > 0) or
     (FBridges.bridge3.Length > 0) then
     Writeln(TorccFile, 'UseBridges 1');
 
@@ -311,8 +363,9 @@ begin
   Writeln(TorccFile, 'CookieAuthentication 1');
   Writeln(TorccFile, 'DormantCanceledByStartup 1');
   Writeln(TorccFile,
-    'ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit exec '
-    + FTorDir + 'PluggableTransports/obfs4proxy ');
+    'ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit exec ' +
+    FTorDir + 'PluggableTransports/obfs4proxy ');
+  Writeln(TorccFile, 'PidFile '+ FWorkDir +'/tor.pid');
 
   CloseFile(TorccFile);
 end;
@@ -327,8 +380,7 @@ begin
   finally
     sResource.Free;
   end;
-  sResource := TResourceStream.Create(HInstance,
-    'GEOIP6', RT_RCDATA);
+  sResource := TResourceStream.Create(HInstance, 'GEOIP6', RT_RCDATA);
   try
     CreateFileFromStream(FWorkDir + '/geoip6', sResource);
   finally
