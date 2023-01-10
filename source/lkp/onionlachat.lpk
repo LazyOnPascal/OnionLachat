@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="OnionLachat"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value=".."/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Version Release="1"/>
+    <Files>
+      <Item>
+        <Filename Value="../TorLauncher.pas"/>
+        <UnitName Value="TorLauncher"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatProtocol.pas"/>
+        <UnitName Value="ChatProtocol"/>
+      </Item>
+      <Item>
+        <Filename Value="../Bridges.pas"/>
+        <UnitName Value="Bridges"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatConnection.pas"/>
+        <UnitName Value="ChatConnection"/>
+      </Item>
+      <Item>
+        <Filename Value="../CommonFunctions.pas"/>
+        <UnitName Value="CommonFunctions"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatFunctions.pas"/>
+        <UnitName Value="ChatFunctions"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatMessage.pas"/>
+        <UnitName Value="ChatMessage"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatUser.pas"/>
+        <UnitName Value="ChatUser"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatMessageList.pas"/>
+        <UnitName Value="ChatMessageList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatContactList.pas"/>
+        <UnitName Value="ChatContactList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatContact.pas"/>
+        <UnitName Value="ChatContact"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatConnectionList.pas"/>
+        <UnitName Value="ChatConnectionList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatServer.pas"/>
+        <UnitName Value="ChatServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../ConnectionStreamList.pas"/>
+        <UnitName Value="ConnectionStreamList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ConnectionStream.pas"/>
+        <UnitName Value="ConnectionStream"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatTypes.pas"/>
+        <UnitName Value="ChatTypes"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="fpcrsalib"/>
+      </Item>
+      <Item>
+        <PackageName Value="LazUtils"/>
+      </Item>
+      <Item>
+        <PackageName Value="LCLBase"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
