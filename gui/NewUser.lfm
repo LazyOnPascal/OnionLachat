@@ -1,126 +1,201 @@
 object fNewUser: TfNewUser
-  Left = 611
-  Height = 666
-  Top = 314
-  Width = 1369
+  Left = 244
+  Height = 415
+  Top = 134
+  Width = 589
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
   Caption = 'New user'
-  ClientHeight = 666
-  ClientWidth = 1369
-  DesignTimePPI = 192
+  ClientHeight = 415
+  ClientWidth = 589
   Position = poDesktopCenter
   LCLVersion = '2.2.4.0'
   object bCreate: TButton
-    Left = 1093
-    Height = 50
-    Top = 512
-    Width = 150
+    AnchorSideTop.Control = gbBridge
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = gbGeneralSettings
+    AnchorSideRight.Side = asrBottom
+    Left = 493
+    Height = 25
+    Top = 367
+    Width = 75
+    BorderSpacing.Top = 15
     Caption = 'Create'
     OnClick = bCreateClick
     TabOrder = 0
   end
   object gbBridge: TGroupBox
-    Left = 584
-    Height = 264
-    Top = 216
-    Width = 653
+    AnchorSideLeft.Control = fbExtendet
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = gbGeneralSettings
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = gbGeneralSettings
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = fbExtendet
+    AnchorSideBottom.Side = asrBottom
+    Left = 287
+    Height = 204
+    Top = 148
+    Width = 281
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 15
+    BorderSpacing.Top = 20
     Caption = 'Tor bridge'
-    ClientHeight = 215
-    ClientWidth = 649
+    ClientHeight = 174
+    ClientWidth = 277
     TabOrder = 1
     object eBridge1: TEdit
-      Left = 24
-      Height = 51
-      Top = 56
-      Width = 595
+      AnchorSideLeft.Control = gbBridge
+      AnchorSideTop.Control = gbBridge
+      AnchorSideRight.Control = gbBridge
+      AnchorSideRight.Side = asrBottom
+      Left = 10
+      Height = 32
+      Top = 10
+      Width = 257
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 10
       TabOrder = 0
     end
     object eBridge2: TEdit
-      Left = 24
-      Height = 51
-      Top = 112
-      Width = 595
+      AnchorSideLeft.Control = gbBridge
+      AnchorSideTop.Control = eBridge1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = gbBridge
+      AnchorSideRight.Side = asrBottom
+      Left = 10
+      Height = 32
+      Top = 52
+      Width = 257
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 10
       TabOrder = 1
     end
     object eBridge3: TEdit
-      Left = 24
-      Height = 51
-      Top = 168
-      Width = 595
+      AnchorSideLeft.Control = gbBridge
+      AnchorSideTop.Control = eBridge2
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = gbBridge
+      AnchorSideRight.Side = asrBottom
+      Left = 10
+      Height = 32
+      Top = 94
+      Width = 257
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 10
       TabOrder = 2
     end
   end
   object fbExtendet: TGroupBox
-    Left = 24
-    Height = 328
-    Top = 216
-    Width = 560
-    Caption = 'Технические настройки'
-    ClientHeight = 279
-    ClientWidth = 556
+    AnchorSideLeft.Control = gbGeneralSettings
+    AnchorSideTop.Control = gbGeneralSettings
+    AnchorSideTop.Side = asrBottom
+    Left = 16
+    Height = 204
+    Top = 148
+    Width = 256
+    BorderSpacing.Top = 20
+    Caption = 'Advanced settings'
+    ClientHeight = 174
+    ClientWidth = 252
     TabOrder = 2
     object lName1: TLabel
-      Left = 24
-      Height = 37
-      Top = 16
-      Width = 114
+      AnchorSideLeft.Control = fbExtendet
+      AnchorSideTop.Control = fbExtendet
+      Left = 10
+      Height = 18
+      Top = 10
+      Width = 56
+      BorderSpacing.Around = 10
       Caption = 'Host port'
       ParentColor = False
     end
     object eHostPort: TEdit
-      Left = 24
-      Height = 51
-      Top = 48
-      Width = 88
+      AnchorSideLeft.Control = lName1
+      AnchorSideTop.Control = lName1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = lName1
+      AnchorSideRight.Side = asrBottom
+      Left = 10
+      Height = 32
+      Top = 38
+      Width = 56
+      Anchors = [akTop, akLeft, akRight]
       NumbersOnly = True
       TabOrder = 0
       Text = '9055'
     end
     object lName2: TLabel
-      Left = 272
-      Height = 37
-      Top = 16
-      Width = 138
+      AnchorSideLeft.Control = lName1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = fbExtendet
+      Left = 96
+      Height = 18
+      Top = 10
+      Width = 67
+      BorderSpacing.Left = 30
+      BorderSpacing.Top = 10
       Caption = 'Port socks5'
       ParentColor = False
     end
     object eSocksPort: TEdit
-      Left = 272
-      Height = 51
-      Top = 48
-      Width = 80
+      AnchorSideLeft.Control = lName2
+      AnchorSideTop.Control = lName2
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = lName2
+      AnchorSideRight.Side = asrBottom
+      Left = 96
+      Height = 32
+      Top = 38
+      Width = 67
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 10
       NumbersOnly = True
       TabOrder = 1
       Text = '9065'
     end
     object lName4: TLabel
-      Left = 24
-      Height = 37
-      Top = 112
-      Width = 159
+      AnchorSideLeft.Control = lName1
+      AnchorSideTop.Control = eSocksPort
+      AnchorSideTop.Side = asrBottom
+      Left = 10
+      Height = 18
+      Top = 92
+      Width = 77
+      BorderSpacing.Top = 22
       Caption = 'Tor config dir'
       ParentColor = False
     end
     object eTorConfigDir: TEdit
-      Left = 24
-      Height = 51
-      Top = 152
-      Width = 176
+      AnchorSideLeft.Control = lName4
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = lName4
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = fbExtendet
+      AnchorSideRight.Side = asrBottom
+      Left = 112
+      Height = 32
+      Top = 85
+      Width = 125
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Left = 25
+      BorderSpacing.Right = 15
       TabOrder = 2
       Text = 'torconfigs/000000'
     end
     object cbAutoStart: TCheckBox
       AnchorSideLeft.Control = fbExtendet
+      AnchorSideTop.Control = lName4
+      AnchorSideTop.Side = asrBottom
       AnchorSideRight.Control = fbExtendet
       AnchorSideRight.Side = asrBottom
       Left = 10
-      Height = 41
-      Top = 217
-      Width = 536
-      Anchors = [akLeft, akRight]
+      Height = 22
+      Top = 130
+      Width = 104
       BorderSpacing.Left = 10
-      BorderSpacing.Right = 10
+      BorderSpacing.Top = 20
+      BorderSpacing.Right = 5
       Caption = 'Connect now'
       Checked = True
       State = cbChecked
@@ -128,43 +203,61 @@ object fNewUser: TfNewUser
     end
   end
   object gbGeneralSettings: TGroupBox
-    Left = 24
-    Height = 168
-    Top = 24
-    Width = 1218
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 16
+    Height = 112
+    Top = 16
+    Width = 552
+    BorderSpacing.Around = 16
     Caption = 'Settings'
-    ClientHeight = 119
-    ClientWidth = 1214
+    ClientHeight = 82
+    ClientWidth = 548
     TabOrder = 3
     object lName: TLabel
-      Left = 40
-      Height = 37
-      Top = 24
-      Width = 72
+      AnchorSideLeft.Control = gbGeneralSettings
+      AnchorSideTop.Control = gbGeneralSettings
+      Left = 10
+      Height = 18
+      Top = 10
+      Width = 35
+      BorderSpacing.Around = 10
       Caption = 'Name'
       ParentColor = False
     end
     object eName: TEdit
-      Left = 40
-      Height = 51
-      Top = 64
-      Width = 397
+      AnchorSideLeft.Control = lName
+      AnchorSideTop.Control = lName
+      AnchorSideTop.Side = asrBottom
+      Left = 10
+      Height = 32
+      Top = 38
+      Width = 198
+      BorderSpacing.Top = 5
       TabOrder = 0
     end
     object lKeyLength: TLabel
-      Left = 480
-      Height = 37
-      Top = 24
-      Width = 181
+      AnchorSideLeft.Control = eName
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = gbGeneralSettings
+      Left = 218
+      Height = 18
+      Top = 10
+      Width = 87
+      BorderSpacing.Around = 10
       Caption = 'Key length (bit)'
       ParentColor = False
     end
     object cbKeyLength: TComboBox
-      Left = 480
-      Height = 51
-      Top = 64
-      Width = 248
-      ItemHeight = 43
+      AnchorSideLeft.Control = lKeyLength
+      AnchorSideTop.Control = lKeyLength
+      AnchorSideTop.Side = asrBottom
+      Left = 218
+      Height = 32
+      Top = 38
+      Width = 124
+      BorderSpacing.Top = 5
+      ItemHeight = 24
       ItemIndex = 0
       Items.Strings = (
         '128'
@@ -180,27 +273,39 @@ object fNewUser: TfNewUser
       Text = '128'
     end
     object lPassword: TLabel
-      Left = 816
-      Height = 37
-      Top = 24
-      Width = 116
+      AnchorSideLeft.Control = cbKeyLength
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = gbGeneralSettings
+      Left = 352
+      Height = 18
+      Top = 10
+      Width = 56
+      BorderSpacing.Around = 10
       Caption = 'Password'
       ParentColor = False
     end
     object ePassword1: TEdit
-      Left = 816
-      Height = 51
-      Top = 64
-      Width = 171
+      AnchorSideLeft.Control = lPassword
+      AnchorSideTop.Control = lPassword
+      AnchorSideTop.Side = asrBottom
+      Left = 352
+      Height = 32
+      Top = 38
+      Width = 86
+      BorderSpacing.Top = 8
       EchoMode = emPassword
       PasswordChar = '*'
       TabOrder = 2
     end
     object ePassword2: TEdit
-      Left = 1008
-      Height = 51
-      Top = 64
-      Width = 171
+      AnchorSideLeft.Control = ePassword1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = ePassword1
+      Left = 448
+      Height = 32
+      Top = 38
+      Width = 86
+      BorderSpacing.Left = 10
       EchoMode = emPassword
       PasswordChar = '*'
       TabOrder = 3
