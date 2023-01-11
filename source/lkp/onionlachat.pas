@@ -10,8 +10,7 @@ interface
 uses
   TorLauncher, ChatProtocol, Bridges, ChatConnection, CommonFunctions, 
   ChatFunctions, ChatMessage, ChatUser, ChatMessageList, ChatContactList, 
-  ChatContact, ChatConnectionList, ChatServer, ConnectionStreamList, 
-  ConnectionStream, ChatTypes, LazarusPackageIntf;
+  ChatContact, LazarusPackageIntf;
 
 implementation
 

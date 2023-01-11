@@ -50,7 +50,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="ChatPackage"/>
+        <PackageName Value="OnionLachat"/>
       </Item>
       <Item>
         <PackageName Value="fpcrsalib"/>

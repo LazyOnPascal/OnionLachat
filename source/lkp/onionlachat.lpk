@@ -56,26 +56,6 @@
         <Filename Value="../ChatContact.pas"/>
         <UnitName Value="ChatContact"/>
       </Item>
-      <Item>
-        <Filename Value="../ChatConnectionList.pas"/>
-        <UnitName Value="ChatConnectionList"/>
-      </Item>
-      <Item>
-        <Filename Value="../ChatServer.pas"/>
-        <UnitName Value="ChatServer"/>
-      </Item>
-      <Item>
-        <Filename Value="../ConnectionStreamList.pas"/>
-        <UnitName Value="ConnectionStreamList"/>
-      </Item>
-      <Item>
-        <Filename Value="../ConnectionStream.pas"/>
-        <UnitName Value="ConnectionStream"/>
-      </Item>
-      <Item>
-        <Filename Value="../ChatTypes.pas"/>
-        <UnitName Value="ChatTypes"/>
-      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
