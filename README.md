@@ -1,6 +1,6 @@
 ```
 There are a lot of bugs, the development continues.
-To run on linux, you will need the qt5pas and tor package.
+To run on linux, you need qt5pas and tor package.
 Just download the latest build and run it. 
 Create a new user and share the link with people. 
 And use the chat!
