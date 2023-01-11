@@ -9,7 +9,7 @@ interface
 {$ENDIF}
 
 uses
-  Classes, SysUtils, Unix, LbRSA, ChatContact, ChatMessage,
+  Classes, SysUtils, {$ifdef Unix} Unix, {$endif} LbRSA, ChatContact, ChatMessage,
   ChatMessageList, ChatConnection;
 
 type
@@ -25,17 +25,19 @@ const
   SESSION_KEY_SIZE = 32;
   DEFAULT_ONION_PORT = 9055;
   DEFAULT_SOCKS_PORT = 9065;
-  IO_SOCKET_TIMEOUT = 50000;
+  IO_SOCKET_TIMEOUT = 15000;
 
 {read|write to socket}
-function recvTimeOut(s: cint; buf: pointer; len: size_t; flags: cint;
-  aTimeOut: integer; thread: TChatConnection): ssize_t;
-function sendTimeOut(s: cint; msg: pointer; len: size_t; flags: cint;
-  aTimeOut: integer): ssize_t;
+procedure SetNonBlockSocket(FSocket:longint);
+procedure SetBlockSocket(FSocket:longint);
+function recvTimeOut(s: longint; buf: pointer; len: qword; flags: longint;
+  aTimeOut: integer; thread: TThread): int64;
+function sendTimeOut(s: longint; msg: pointer; len: qword; flags: longint;
+  aTimeOut: integer): int64;
 function ReadDWordFromSocket(aSock: longint): DWORD;
-function ReadBytesFromSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
+function ReadBytesFromSocket(aSock: longint; msg: pointer; len: qword): int64;
 procedure WriteDWordToSocket(aSock: longint; aValue: DWORD);
-function WriteBytesToSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
+function WriteBytesToSocket(aSock: longint; msg: pointer; len: qword): int64;
 procedure WriteStreamToSocket(aSocket: longint; aSource: TMemoryStream);
 procedure ReadStreamFromSocket(aSocket: longint; aSource: TMemoryStream);
 {read|write to socket}
@@ -90,24 +92,52 @@ procedure ProgramLogProtocol(aText: string);
 implementation
 
 uses LbAsym, Sockets, ChatFunctions,
-  LbRandom, DCPrijndael, DCPsha256,
-  BaseUnix, ChatUser, DCPblowfish;
+  LbRandom, DCPrijndael, DCPsha256
+  {$ifdef Win64}, winsock2 {$endif}
+  {$ifdef Unix}, BaseUnix {$endif}, ChatUser;
 
-function recvTimeOut(s: cint; buf: pointer; len: size_t; flags: cint;
-  aTimeOut: integer; thread: TChatConnection): ssize_t;
+procedure SetNonBlockSocket(FSocket: longint);
+{$ifdef Win64}
+var
+  Mode : longint = 1;
+{$endif}
+begin
+  {$ifdef Unix}
+    FpFcntl(FSocket, F_SetFl, O_NONBLOCK);
+  {$endif}
+  {$ifdef Win64}
+    ioctlsocket(FSocket, FIONBIO, @Mode);
+  {$endif}
+end;
+
+procedure SetBlockSocket(FSocket: longint);
+{$ifdef Win64}
+var
+  Mode : longint = 0;
+{$endif}
+begin
+  {$ifdef Unix}
+    FpFcntl(FSocket, F_SetFl, 0);
+  {$endif}
+  {$ifdef Win64}
+    ioctlsocket(FSocket, FIONBIO, @Mode);
+  {$endif}
+end;
+
+function recvTimeOut(s: longint; buf: pointer; len: qword; flags: longint;
+  aTimeOut: integer; thread: TThread): int64;
 var
   workTime: integer;
-  def_flags: cint;
+  def_flags: longint;
   vBuf: pointer;
-  vLen: size_t;
+  vLen: qword;
   vRes: integer;
 begin
   ProgramLogProtocol('recvTimeOut begin ' + IntToStr(len) + ' byte');
   workTime := 0;
   Result := 0;
 
-  def_flags := FpFcntl(s, F_GetFl, 0);
-  FpFcntl(s, F_SetFl, def_flags or O_NONBLOCK);
+  SetNonBlockSocket(s);
   try
 
     vBuf := buf;
@@ -133,24 +163,23 @@ begin
     end;
 
   finally
-    FpFcntl(s, F_SetFl, def_flags);
+    SetBlockSocket(s);
     ProgramLogProtocol('recvTimeOut return ' + IntToStr(Result) +
       ' byte, after ' + IntToStr(workTime div 1000) + ' sec');
   end;
 
 end;
 
-function sendTimeOut(s: cint; msg: pointer; len: size_t; flags: cint;
-  aTimeOut: integer): ssize_t;
+function sendTimeOut(s: longint; msg: pointer; len: qword; flags: longint;
+  aTimeOut: integer): int64;
 var
   workTime: integer;
-  def_flags: cint;
+  def_flags: longint;
 begin
   workTime := 0;
   Result := 0;
 
-  def_flags := FpFcntl(s, F_GetFl, 0);
-  FpFcntl(s, F_SetFl, def_flags or O_NONBLOCK);
+  SetNonBlockSocket(s);
   try
     ProgramLogProtocol('sendTimeOut begin ' + IntToStr(len) + ' byte');
     while (workTime < aTimeOut) do
@@ -166,7 +195,7 @@ begin
     end;
 
   finally
-    FpFcntl(s, F_SetFl, def_flags);
+    SetBlockSocket(s);
   end;
 
 end;
@@ -185,7 +214,7 @@ begin
   end;
 end;
 
-function ReadBytesFromSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
+function ReadBytesFromSocket(aSock: longint; msg: pointer; len: qword): int64;
 begin
   ProgramLogProtocol('ReadBytesFromSocket begin ' + IntToStr(len) + ' byte');
   Result := fprecv(aSock, msg, len, 0);
@@ -199,7 +228,7 @@ begin
     raise EChatNet.Create('WriteDWordToSocket write not 4 byte');
 end;
 
-function WriteBytesToSocket(aSock: longint; msg: pointer; len: size_t): ssize_t;
+function WriteBytesToSocket(aSock: longint; msg: pointer; len: qword): int64;
 begin
   ProgramLogProtocol('WriteBytesToSocket begin ' + IntToStr(len) + ' byte');
   Result := fpsend(aSock, msg, len, 0);
@@ -590,13 +619,12 @@ end;
 {messages functions}
 function getTransfer(aSocket: longint): TTranferType;
 var
-  def_flags: cint;
-  answer: ssize_t;
+  def_flags: longint;
+  answer: int64;
 begin
   Result := TTNON;
   { NOTE : this fuctions work in non block socket mode  }
-  def_flags := FpFcntl(aSocket, F_GetFl, 0);
-  FpFcntl(aSocket, F_SetFl, def_flags or O_NONBLOCK);
+  SetNonBlockSocket(aSocket);
 
   try
     answer := fprecv(aSocket, @Result, 4, 0);
@@ -613,7 +641,7 @@ begin
       raise EChatNet.Create('getTransfer read not 4 bytes');
     end;
   finally
-    FpFcntl(aSocket, F_SetFl, def_flags);
+    SetBlockSocket(aSocket);
   end;
 
 end;

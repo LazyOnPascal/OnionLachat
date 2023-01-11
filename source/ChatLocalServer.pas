@@ -5,7 +5,7 @@ unit ChatLocalServer;
 interface
 
 uses
-  Classes, SysUtils, Sockets, BaseUnix, TorLauncher;
+  Classes, SysUtils, Sockets{$ifdef Unix}, BaseUnix {$endif}, TorLauncher;
 
 type
 
@@ -36,7 +36,7 @@ type
 
 implementation
 
-uses DateUtils, ChatFunctions, ChatUser;
+uses DateUtils, ChatFunctions, ChatUser, ChatProtocol;
 
 { TChatServer }
 
@@ -104,7 +104,7 @@ var
 begin
 
   FSocket := fpSocket(AF_INET, SOCK_STREAM, IPPROTO_IP);
-  FpFcntl(FSocket, F_SetFl, O_NONBLOCK);
+  SetNonBlockSocket(FSocket);
   if FSocket = -1 then
   begin
     raise EChatServerException.Create('fpSocket FAILED');

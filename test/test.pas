@@ -13,7 +13,7 @@ const
   //DEFAULT_BRIDGE_2 = 'enter your bridges here';
   CONNECTION_TIMEOUT = 100;
   DEFAULT_USE_BRIDGES = True;
-  DEFAULT_ONION_PORT = 9151;
+  DEFAULT_ONION_PORT = 9251;
   DEFAULT_SOCKS_PORT = 9252;
 
 type
@@ -93,8 +93,7 @@ begin
 
   ProgramLogInfo('Tor connected in ' + IntToStr(vTimer) + ' sec');
 
-  ProgramLogInfo('Host: ' + aUser.tor.host+', now sleep 100 sec');
-  Sleep(10000);
+  ProgramLogInfo('Host: ' + aUser.tor.host);
 end;
 
 procedure TChatTest.WaitContactConnected(aContact: TChatContact);
@@ -199,7 +198,7 @@ begin
   tor := TTorLauncher.Create('', 'torconfigs/ConnectDirectConfig',
     9151, 9152, TtorBridges.Create('', '', ''));
   try
-    tor.Execute;
+    tor.process.Execute;
     for vTimer := 0 to CONNECTION_TIMEOUT do
     begin
       Write(tor.GetNewOutput);
@@ -221,7 +220,7 @@ begin
   tor := TTorLauncher.Create('', 'torconfigs/ConnectBridgeConfig',
     9151, 9152, TtorBridges.Create(DEFAULT_BRIDGE_1, DEFAULT_BRIDGE_2, ''));
   try
-    tor.Execute;
+    tor.process.Execute;
     for vTimer := 0 to CONNECTION_TIMEOUT do
     begin
       Write(tor.GetNewOutput);
@@ -298,7 +297,7 @@ begin
     //reconnect
     ProgramLogInfo('---Test 2 begin---, CheckReconnect');
     ProgramLogInfo('User1 tor restart');
-    user1.Tor.Restart;
+    user1.TorRestart;
     Sleep(2000);
     InitTor(user1, false);
 
@@ -345,7 +344,7 @@ begin
 
     //or just restart tor, if this is not done,
     //the port of user1 will be "alredy in use"
-    user2.Tor.Restart;
+    user2.TorRestart;
     initTor(user2, false);
 
 

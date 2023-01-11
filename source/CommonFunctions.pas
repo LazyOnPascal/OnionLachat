@@ -5,7 +5,7 @@ unit CommonFunctions;
 interface
 
 uses
-  Classes, SysUtils, Unix;
+  Classes, SysUtils {$ifdef Unix}, Unix {$endif};
 
 type
   EFileStream = class(Exception);
