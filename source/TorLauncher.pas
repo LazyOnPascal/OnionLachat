@@ -54,9 +54,7 @@ type
     destructor Destroy; override;
 
   public
-    procedure Execute;
     procedure KillProcess;
-    procedure Restart;
     function GetNewOutput: string;
     function TorReadyToWork: boolean;
     procedure PackToStream(aStream: TStream);
@@ -84,7 +82,10 @@ type
 implementation
 
 uses
-  FileUtil {$ifdef Unix}, BaseUnix {$endif}, CommonFunctions;
+  FileUtil,
+  {$ifdef win64} Windows ,{$endif}
+  {$ifdef Unix} BaseUnix ,{$endif}
+  CommonFunctions;
 
 {$ifdef Win64}
 const RT_RCDATA = MAKEINTRESOURCE(10);
@@ -188,24 +189,29 @@ begin
   FProcess.Parameters.Add(FWorkDir);
   FProcess.Parameters.Add('-f');
   FProcess.Parameters.Add(FWorkDir + ConfigFileNameConst);
-  FProcess.Options := [poUsePipes];
+  {$IFOPT D+}
+    FProcess.Options := [poUsePipes];
+  {$else}
+    FProcess.Options := [poNoConsole];
+  {$endif}
 
   BuildTorrcFile;
 end;
 
 procedure TTorLauncher.KillIfAlreadyRunning;
 var
-  FileSize: UInt64;
+  FileSize: uint64;
   Pid: THandle;
-  PidStr: String;
+  PidStr: string;
   PidFile: TFileStream = nil;
-  PidFileName: String;
+  PidFileName: string;
   {$ifdef windows}
   HProc: THandle;
   {$endif}
 begin
   PidFileName := FWorkDir + '/tor.pid';
-  if FileExists(PidFileName) then begin
+  if FileExists(PidFileName) then
+  begin
     WriteLn('W old Tor process might still be running (tor.pid detected), trying to kill it');
     try
       PidFile := TFileStream.Create(PidFileName, fmOpenRead);
@@ -219,9 +225,9 @@ begin
         HProc := OpenProcess(PROCESS_TERMINATE, False, Pid);
         TerminateProcess(HProc, 0);
       {$else}
-        FpKill(Pid, SIGKILL);
+      FpKill(Pid, SIGKILL);
       {$endif}
-      DeleteFile(PidFileName);
+      DeleteFile(PChar(PidFileName));
       Sleep(500);
     except
       WriteLn('E existing pid file could not be read');
@@ -231,11 +237,6 @@ begin
   end;
 end;
 
-procedure TTorLauncher.Execute;
-begin
-  FProcess.Execute;
-end;
-
 procedure TTorLauncher.KillProcess;
 begin
   {$ifdef unix}
@@ -243,35 +244,13 @@ begin
   {$else}
     {$ifdef win64}
       TerminateProcess(FProcess.Handle, 0);
-      DeleteFile(FWorkDir +'tor.pid');
+      DeleteFile(PChar(FWorkDir +'tor.pid'));
     {$else}
-      FProcess.Terminate(0);
-      DeleteFile(FWorkDir +'tor.pid');
+  FProcess.Terminate(0);
+  DeleteFile(FWorkDir + 'tor.pid');
     {$endif}
   {$endif}
-
-  Self.FProcess.Free;
   FFullConsoleOutput := '';
-end;
-
-procedure TTorLauncher.Restart;
-var
-  tor, dir: string;
-  onion, socks: word;
-  b: TTorBridges;
-begin
-  KillProcess;
-  tor := FTorDir;
-  dir := FWorkDir;
-  onion := FOnionPort;
-  socks := FSocksPort;
-  b := TTorBridges.Create(FBridges.bridge1, FBridges.bridge2, FBridges.bridge3);
-  self.Free;
-  self := TTorLauncher.Create(tor, dir, onion, socks, b);
-  self.Execute;
-  //FProcess.Free;
-  //FFullConsoleOutput := '';
-  //Execute;
 end;
 
 function TTorLauncher.GetNewOutput: string;
@@ -365,7 +344,7 @@ begin
   Writeln(TorccFile,
     'ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit exec ' +
     FTorDir + 'PluggableTransports/obfs4proxy ');
-  Writeln(TorccFile, 'PidFile '+ FWorkDir +'/tor.pid');
+  Writeln(TorccFile, 'PidFile ' + FWorkDir + '/tor.pid');
 
   CloseFile(TorccFile);
 end;

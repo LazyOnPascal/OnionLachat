@@ -38,6 +38,7 @@ type
     procedure Pause;
     procedure Resume;
     procedure PackToStream(aStream: TStream);
+    procedure TorRestart;
 
   public
     property Name: string read FName write FName;
@@ -131,6 +132,19 @@ begin
 
 end;
 
+procedure TChatUser.TorRestart;
+var
+  stream:TMemoryStream;
+begin
+  stream := TMemoryStream.Create;
+  FTor.PackToStream(stream);
+  FTor.KillProcess;
+  FTor.Free;
+  stream.Position:=0;
+  FTor := TTorLauncher.LoadFromStream(stream);
+  FTor.process.Execute;
+end;
+
 destructor TChatUser.Destroy;
 begin
 
@@ -149,7 +163,7 @@ begin
   try
     FServer.StartOfSockService;
     if FServer.Finished or FServer.Suspended then FServer.Start;
-    if not FTor.process.Running then FTor.Execute;
+    if not FTor.process.Running then FTor.process.Execute;
   except
     FConstructorError := True;
   end;
