@@ -17,7 +17,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="5"/>
+      <BuildNr Value="9"/>
       <Attributes pvaPreRelease="True"/>
     </VersionInfo>
     <BuildModes>
@@ -99,7 +99,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="ChatPackage"/>
+        <PackageName Value="OnionLachat"/>
       </Item>
       <Item>
         <PackageName Value="fpcrsalib"/>
