@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<minder version="1.14.0" parent-etag="30553511" etag="2425928389">
+  <theme name="default" label="&#x421;&#x432;&#x435;&#x442;&#x43B;&#x430;&#x44F;" index="-1"/>
+  <styles>
+    <style level="0" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="rounded" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="10" nodepadding="10" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="1" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="2" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="3" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="4" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="5" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="6" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="7" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="8" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="9" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="10" isset="false" branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+  </styles>
+  <drawarea x="50.43181245797291" y="-374.50230916341161" scale="0.5"/>
+  <images/>
+  <nodes>
+    <node id="0" posx="35.442226238316039" posy="661.28213500976562" width="115" height="49" side="left" fold="false" treesize="1148" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+      <nodename posx="49.442226238316039" posy="675.28213500976562" maxwidth="200">
+        <text data="OnionLachat"/>
+      </nodename>
+      <nodenote></nodenote>
+      <nodes>
+        <node id="2" posx="250.44222623831604" posy="111.78213500976562" width="114" height="49" side="right" fold="false" treesize="49" color="#f9c440" colorroot="true" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+          <nodename posx="264.44222623831604" posy="125.78213500976562" maxwidth="200">
+            <text data="TorLauncher"/>
+          </nodename>
+          <nodenote></nodenote>
+        </node>
+        <node id="1" posx="250.44222623831604" posy="685.78213500976562" width="91" height="49" side="right" fold="false" treesize="1099" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+          <nodename posx="264.44222623831604" posy="699.78213500976562" maxwidth="200">
+            <text data="ChatUser"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="3" posx="441.44222623831604" posy="160.78213500976562" width="69" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="174.78213500976562" maxwidth="200">
+                <text data="Name"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="4" posx="441.44222623831604" posy="209.78213500976562" width="81" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="223.78213500976562" maxwidth="200">
+                <text data="RSA key"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="6" posx="441.44222623831604" posy="430.28213500976562" width="135" height="49" side="right" fold="false" treesize="392" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="bracket" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="444.28213500976562" maxwidth="200">
+                <text data="ChatContactList"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="11" posx="676.44222623831604" posy="430.28213500976562" width="111" height="49" side="right" fold="false" treesize="392" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="690.44222623831604" posy="444.28213500976562" maxwidth="200">
+                    <text data="ChatContact"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="14" posx="887.44222623831593" posy="258.78213500976562" width="127" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="901.44222623831593" posy="272.78213500976562" maxwidth="200">
+                        <text data="Public RSA key"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="16" posx="887.44222623831593" posy="307.78213500976562" width="119" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="901.44222623831593" posy="321.78213500976562" maxwidth="200">
+                        <text data="Onion adress"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="47" posx="887.44222623831593" posy="356.78213500976562" width="187" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="901.44222623831593" posy="370.78213500976562" maxwidth="200">
+                        <text data="NeedToDeleteOnServer"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="17" posx="887.44222623831593" posy="503.78213500976562" width="112" height="49" side="right" fold="false" treesize="245" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="bracket" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="901.44222623831593" posy="517.78213500976562" maxwidth="200">
+                        <text data="MessageList"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="30" posx="1099.4422262383159" posy="503.78213500976562" width="119" height="49" side="right" fold="false" treesize="245" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1113.4422262383159" posy="517.78213500976562" maxwidth="200">
+                            <text data="ChatMessage"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                          <nodes>
+                            <node id="34" posx="1318.4422262383159" posy="405.78213500976562" width="117" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1332.4422262383159" posy="419.78213500976562" maxwidth="200">
+                                <text data="SHA256 hash"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                            <node id="39" posx="1318.4422262383159" posy="454.78213500976562" width="159" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1332.4422262383159" posy="468.78213500976562" maxwidth="200">
+                                <text data="SendingInProgress"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                            <node id="35" posx="1318.4422262383159" posy="503.78213500976562" width="79" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1332.4422262383159" posy="517.78213500976562" maxwidth="200">
+                                <text data="Sended"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                            <node id="36" posx="1318.4422262383159" posy="552.78213500976562" width="80" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1332.4422262383159" posy="566.78213500976562" maxwidth="200">
+                                <text data="Recived"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                            <node id="37" posx="1318.4422262383159" posy="601.78213500976562" width="60" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1332.4422262383159" posy="615.78213500976562" maxwidth="200">
+                                <text data="Data"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                          </nodes>
+                        </node>
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node id="29" posx="441.44222623831604" posy="650.78213500976562" width="156" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="rounded" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="664.78213500976562" maxwidth="200">
+                <text data="NewContactDialog"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="28" posx="441.44222623831604" posy="699.78213500976562" width="166" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="713.78213500976562" maxwidth="200">
+                <text data="AcceptedContactList"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="5" posx="441.44222623831604" posy="979.78213500976562" width="158" height="49" side="right" fold="false" treesize="511" color="#68b723" colorroot="true" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="455.44222623831604" posy="993.78213500976562" maxwidth="200">
+                <text data="ChatServer(Thread)"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="40" posx="699.44222623831604" posy="748.78213500976562" width="109" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="true" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="713.44222623831604" posy="762.78213500976562" maxwidth="200">
+                    <text data="Constructor"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="24" posx="908.44222623831593" posy="748.78213500976562" width="212" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="true" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="922.44222623831593" posy="762.78213500976562" maxwidth="200">
+                        <text data="InitOldContactsConnection"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="25" posx="1220.4422262383159" posy="748.78213500976562" width="99" height="49" side="right" fold="false" treesize="49" color="#c6262e" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1234.4422262383159" posy="762.78213500976562" maxwidth="200">
+                            <text data="Reconnect"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+                <node id="7" posx="699.44222623831604" posy="895.78213500976562" width="161" height="49" side="right" fold="false" treesize="245" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="bracket" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="713.44222623831604" posy="909.78213500976562" maxwidth="200">
+                    <text data="ChatConnectionList"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="9" posx="960.44222623831593" posy="895.78213500976562" width="137" height="49" side="right" fold="false" treesize="245" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="974.44222623831593" posy="909.78213500976562" maxwidth="200">
+                        <text data="ChatConnection"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="10" posx="1197.4422262383159" posy="797.78213500976562" width="111" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="dotted" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1211.4422262383159" posy="811.78213500976562" maxwidth="200">
+                            <text data="ChatContact"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                        <node id="15" posx="1197.4422262383159" posy="846.78213500976562" width="107" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1211.4422262383159" posy="860.78213500976562" maxwidth="200">
+                            <text data="Session key"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                        <node id="13" posx="1197.4422262383159" posy="895.78213500976562" width="121" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1211.4422262383159" posy="909.78213500976562" maxwidth="200">
+                            <text data="OutputSocket"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                        <node id="12" posx="1197.4422262383159" posy="944.78213500976562" width="110" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1211.4422262383159" posy="958.78213500976562" maxwidth="200">
+                            <text data="InputSocket"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                        <node id="31" posx="1197.4422262383159" posy="993.78213500976562" width="101" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="bracket" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1211.4422262383159" posy="1007.7821350097656" maxwidth="200">
+                            <text data="StreamList"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+                <node id="18" posx="699.44222623831604" posy="1067.2821350097656" width="87" height="49" side="right" fold="false" treesize="98" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="713.44222623831604" posy="1081.2821350097656" maxwidth="200">
+                    <text data="fpAccept"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="45" posx="886.44222623831593" posy="1042.7821350097656" width="223" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="bracket" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="900.44222623831593" posy="1056.7821350097656" maxwidth="200">
+                        <text data="ChatAcceptedConnectionList"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="48" posx="1209.4422262383159" posy="1042.7821350097656" width="199" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1223.4422262383159" posy="1056.7821350097656" maxwidth="200">
+                            <text data="ChatAcceptedConnection"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                          <nodes>
+                            <node id="49" posx="1508.4422262383159" posy="1042.7821350097656" width="135" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                              <nodename posx="1522.4422262383159" posy="1056.7821350097656" maxwidth="200">
+                                <text data="AcceptedSocket"/>
+                              </nodename>
+                              <nodenote></nodenote>
+                            </node>
+                          </nodes>
+                        </node>
+                      </nodes>
+                    </node>
+                    <node id="20" posx="886.44222623831593" posy="1091.7821350097656" width="160" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                      <nodename posx="900.44222623831593" posy="1105.7821350097656" maxwidth="200">
+                        <text data="GetRSAFromSocket"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="21" posx="1146.4422262383159" posy="1091.7821350097656" width="224" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                          <nodename posx="1160.4422262383159" posy="1105.7821350097656" maxwidth="200">
+                            <text data="FindRSAKeyInConnectionList"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                      </nodes>
+                    </node>
+                  </nodes>
+                </node>
+                <node id="33" posx="699.44222623831604" posy="1140.7821350097656" width="221" height="70" side="right" fold="false" treesize="70" color="#c6262e" colorroot="true" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="713.44222623831604" posy="1154.7821350097656" maxwidth="200">
+                    <text data="SynchronizeStreams(synchronize)"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="42" posx="699.44222623831604" posy="1210.7821350097656" width="54" height="49" side="right" fold="false" treesize="49" color="#68b723" colorroot="false" layout="&#x413;&#x43E;&#x440;&#x438;&#x437;&#x43E;&#x43D;&#x442;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="squared" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+                  <nodename posx="713.44222623831604" posy="1224.7821350097656" maxwidth="200">
+                    <text data="Poll"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+      </nodes>
+    </node>
+  </nodes>
+  <groups/>
+  <connections>
+    <connection from_id="24" to_id="7" drag_x="842.56153869628906" drag_y="844.18698120117165">
+      <style connectiondash="longdash" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="25" to_id="13" drag_x="1424.1082153320312" drag_y="894.51705932617165">
+      <style connectiondash="longdash" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="6" to_id="24" drag_x="804.51199849446652" drag_y="597.19855753580714">
+      <style connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="11" to_id="25" drag_x="1002.3283233642574" drag_y="242.08453369140602">
+      <style connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="2" to_id="1" drag_x="304.05830383300804" drag_y="428.28473917643191">
+      <style connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="28" to_id="29" drag_x="645.99905904134175" drag_y="699.3833312988279">
+      <style connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="29" to_id="6" drag_x="628.57368469238304" drag_y="583.75267537434888">
+      <style connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+    <connection from_id="11" to_id="10" drag_x="992.44222623831593" drag_y="638.53213500976551">
+      <style connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+      <title></title>
+      <note></note>
+    </connection>
+  </connections>
+  <stickers/>
+</minder>

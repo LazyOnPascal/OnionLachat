@@ -1,43 +1,34 @@
 unit ChatContactList;
 
-{$mode ObjFPC}{$H+}
+{$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, ChatContact;
+  Classes,
+  SysUtils,
+  ChatContact;
 
 type
-
-  TOnAddContact = procedure(aContact: TChatContact) of object;
-  TOnDeleteContact = procedure(aContact: TChatContact) of object;
 
   { TChatContactList }
 
   TChatContactList = class(TFPList)
   private
-    //FUserOwner: TObject;
-    FOnAddProc: TOnAddContact;
-    FOnDelProc: TOnDeleteContact;
-  private
     function Get(Index: integer): TChatContact;
   public
     constructor Create;
-    constructor LoadFromStream(aUser: TObject; aStream: TStream);
     destructor Destroy; override;
   public
     function Add(aContact: TChatContact): integer;
-    procedure CheckForReconnect;
-    procedure Lock;
-    procedure UnLock;
-    procedure PackToStream(aStream: TStream);
-    procedure SetProc(aOnAddProc: TOnAddContact;
-      aOnDelProc: TOnDeleteContact);
   public
     property Items[Index: integer]: TChatContact read Get; default;
   end;
 
 implementation
+
+uses
+  ChatTypes;
 
 { TChatContactList }
 
@@ -49,39 +40,6 @@ end;
 constructor TChatContactList.Create;
 begin
   inherited Create;
-  FOnAddProc := nil;
-  FOnDelProc := nil;
-end;
-
-constructor TChatContactList.LoadFromStream(aUser: TObject;
-  aStream: TStream);
-var
-  I, countContacts: integer;
-begin
-  self.Create;
-  countContacts := aStream.ReadDWord;
-  for I := 0 to countContacts - 1 do
-  begin
-    self.Add(TChatContact.LoadFromStream(aUser, aStream));
-  end;
-end;
-
-procedure TChatContactList.PackToStream(aStream: TStream);
-var
-  I: integer;
-begin
-  aStream.WriteDWord(Count);
-  for I := 0 to Count - 1 do
-  begin
-    Items[I].PackToStream(aStream);
-  end;
-end;
-
-procedure TChatContactList.SetProc(aOnAddProc: TOnAddContact;
-  aOnDelProc: TOnDeleteContact);
-begin
-  FOnAddProc := aOnAddProc;
-  FOnDelProc := aOnDelProc;
 end;
 
 destructor TChatContactList.Destroy;
@@ -90,65 +48,27 @@ var
 begin
   for I := 0 to Count - 1 do
   begin
-    if not (FOnDelProc = nil) then FOnDelProc(Items[I]);
     Items[I].Free;
   end;
   inherited Destroy;
 end;
 
 function TChatContactList.Add(aContact: TChatContact): integer;
-var
-  I: integer;
-  isOld: boolean;
 begin
-  isOld := False;
-  Result := -1;
-  for I := 0 to Count - 1 do
+  Result := IndexOf(aContact);
+  if Result <> -1 then
   begin
-    if (Items[I].ContactLink = aContact.ContactLink) then
+    raise EChatException.Create('Try to add contact(' + aContact.Name + ') to list twice ');
+  end;
+  for Result := 0 to Count - 1 do
+  begin
+    if Items[Result].Link = aContact.Link then
     begin
-      isOld := True;
-      break;
+      raise EChatException.Create('Try to add contact with link(' +
+        aContact.Link + ') to list twice ');
     end;
   end;
-
-  if not IsOld then
-  begin
-    //aContact.Reconnect;
-    Result := inherited Add(aContact);
-    if not (FOnAddProc = nil) then FOnAddProc(aContact);
-  end;
-end;
-
-procedure TChatContactList.CheckForReconnect;
-var
-  I: integer;
-begin
-  for I := 0 to Count - 1 do
-  begin
-    if not Items[I].Connection.Connected then
-      Items[I].Reconnect;
-  end;
-end;
-
-procedure TChatContactList.Lock;
-var
-  I: integer;
-begin
-  for I := 0 to Count - 1 do
-  begin
-    Items[I].LockCriticalSection;
-  end;
-end;
-
-procedure TChatContactList.UnLock;
-var
-  I: integer;
-begin
-  for I := 0 to Count - 1 do
-  begin
-    Items[I].UnlockCriticalSection;
-  end;
+  Result := inherited Add(aContact);
 end;
 
 end.

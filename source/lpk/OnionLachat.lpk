@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="OnionLachat"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value=".."/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Version Release="3"/>
+    <Files>
+      <Item>
+        <Filename Value="../ChatUser.pas"/>
+        <UnitName Value="ChatUser"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatLog.pas"/>
+        <UnitName Value="ChatLog"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatServer.pas"/>
+        <UnitName Value="ChatServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatConnectionList.pas"/>
+        <UnitName Value="ChatConnectionList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatConnection.pas"/>
+        <UnitName Value="ChatConnection"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatContact.pas"/>
+        <UnitName Value="ChatContact"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatContactList.pas"/>
+        <UnitName Value="ChatContactList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatAcceptedConnectionList.pas"/>
+        <UnitName Value="ChatAcceptedConnectionList"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatAcceptedConnection.pas"/>
+        <UnitName Value="ChatAcceptedConnection"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatSocketProcedures.pas"/>
+        <UnitName Value="ChatSocketProcedures"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatTypes.pas"/>
+        <UnitName Value="ChatTypes"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatSocket.pas"/>
+        <UnitName Value="ChatSocket"/>
+      </Item>
+      <Item>
+        <Filename Value="../ChatSocketMessage.pas"/>
+        <UnitName Value="ChatSocketMessage"/>
+      </Item>
+      <Item>
+        <Filename Value="../LinkConnector.pas"/>
+        <UnitName Value="LinkConnector"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="FPCPoll"/>
+      </Item>
+      <Item>
+        <PackageName Value="fpcrsalib"/>
+      </Item>
+      <Item>
+        <PackageName Value="FPCTorLauncher"/>
+      </Item>
+      <Item>
+        <PackageName Value="LCLBase"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
