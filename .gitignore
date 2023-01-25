@@ -11,6 +11,7 @@ database.chat
 lazonionchat_linux*
 gui/bin/win/tor/*
 gui/bin/win/*
+test/test
 
 # Lazarus compiler-generated binaries (safe to delete)
 *.exe
