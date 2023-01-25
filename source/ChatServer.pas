@@ -22,7 +22,7 @@ type
   TChatServer = class(TThread)
   private
     FPort: word;
-    FSock: longint;
+    FSock: longint;  //зокет для fpAccept
     FKey: TLbRSA;    //ключ нашего пользователя
     FContacts: TChatContactList;
     FChatConnectionList: TChatConnectionList;
@@ -48,7 +48,8 @@ uses
   ChatSocketProcedures,
   Sockets,
   PollPart,
-  ChatAcceptedConnection;
+  ChatAcceptedConnection,
+  ChatConst;
 
 { TChatServer }
 
@@ -66,7 +67,8 @@ begin
     FChatConnectionList := TChatConnectionList.Create;
     FChatAcceptedConnectionList := TChatAcceptedConnectionList.Create;
     FPoll := TPollList.Create;
-    p := TPollPart.Create(FSock, nil, @OnAccept, nil, nil, nil, nil);
+    p := TPollPart.Create(FSock);
+    p.OnReadable:=@OnAccept;
     p.Read := True;
     FPoll.Add(p);
 
@@ -92,9 +94,9 @@ end;
 
 procedure TChatServer.FreeIfAssigned;
 begin
-  if assigned(FChatConnectionList) then FChatConnectionList.Free;
-  if assigned(FChatAcceptedConnectionList) then FChatAcceptedConnectionList.Free;
-  if assigned(FPoll) then FPoll.Free;
+  if assigned(FChatConnectionList) then FreeAndNil(FChatConnectionList);
+  if assigned(FChatAcceptedConnectionList) then FreeAndNil(FChatAcceptedConnectionList);
+  if assigned(FPoll) then FreeAndNil(FPoll);
 end;
 
 procedure TChatServer.CreateConnectionFromContactList;
@@ -104,7 +106,7 @@ var
 begin
   for I := 0 to FContacts.Count - 1 do
   begin
-    connection := TChatConnection.Create(FContacts.Items[I],FKey,FPoll);
+    connection := TChatConnection.Create(FContacts.Items[I],FPort,FKey,FPoll);
     FChatConnectionList.Add(connection);
   end;
 end;
@@ -119,7 +121,7 @@ begin
     begin
       SetNonBlockSocket(ClientSock);
       FChatAcceptedConnectionList.Add(
-        TChatAcceptedConnection.Create(ClientSock, 10000));
+        TChatAcceptedConnection.Create(ClientSock, ACCEPTED_CONNECTION_TIMEOUT));
     end;
   until (ClientSock = -1);
 end;

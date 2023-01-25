@@ -23,15 +23,13 @@ type
     FOnSocketMessage: TOnSocketMessage;
     FOnChatSocketClosed: TOnChatSocketClosed;
     FReadBuffer: array[0..1048576] of byte;  // мегабайт
-    FReadBufferPosition : integer;
+    FReadBufferPosition: integer;
 
   public
-    constructor Create(aLink: string;
-      aOnSocketMessage: TOnSocketMessage;
-      aOnChatSocketClosed: TOnChatSocketClosed);
+    constructor Create(aSock: longint; aOnSocketMessage: TOnSocketMessage;
+      aOnChatSocketClosed: TOnChatSocketClosed; aPollList: TPollList);
 
-    constructor Create(aSock: longint;
-      aOnSocketMessage: TOnSocketMessage;
+    constructor Create(aSock: longint; aOnSocketMessage: TOnSocketMessage;
       aOnChatSocketClosed: TOnChatSocketClosed);
 
     destructor Destroy; override;
@@ -66,23 +64,23 @@ uses
 
 { TChatSocket }
 
-constructor TChatSocket.Create(aLink: string;
-  aOnSocketMessage: TOnSocketMessage; aOnChatSocketClosed: TOnChatSocketClosed);
+constructor TChatSocket.Create(aSock: longint; aOnSocketMessage: TOnSocketMessage;
+  aOnChatSocketClosed: TOnChatSocketClosed; aPollList: TPollList);
 begin
-  Init;
+  Create(aSock, aOnSocketMessage, aOnChatSocketClosed);
+  aPollList.Add(self.Poll);
 end;
 
-constructor TChatSocket.Create(aSock: longint;
-      aOnSocketMessage: TOnSocketMessage;
-      aOnChatSocketClosed: TOnChatSocketClosed);
+constructor TChatSocket.Create(aSock: longint; aOnSocketMessage: TOnSocketMessage;
+  aOnChatSocketClosed: TOnChatSocketClosed);
 begin
   Init;
   FSock := aSock;
   FOnSocketMessage := aOnSocketMessage;
   FOnChatSocketClosed := aOnChatSocketClosed;
 
-  FPollPart := TPollPart.Create(FSock, @OnWritable,
-    @OnReadable, @OnClosed, @OnError, @OnUrgent, @OnInvalid);
+  FPollPart := TPollPart.Create(FSock, @OnWritable, @OnReadable,
+    @OnClosed, @OnError, @OnUrgent, @OnInvalid);
 end;
 
 destructor TChatSocket.Destroy;
@@ -94,16 +92,16 @@ end;
 
 procedure TChatSocket.Init;
 begin
-  FSocketClosed := false;
+  FSocketClosed := False;
   FReadBufferPosition := 0;
 end;
 
 procedure TChatSocket.ReadAll;
 var
-  bytesReaded : integer;
-  socketMessage : TChatSocketMessage;
-  b : byte;
-  i, startIndex : integer;
+  bytesReaded: integer;
+  socketMessage: TChatSocketMessage;
+  b: byte;
+  i, startIndex: integer;
   isMessage: boolean;
 begin
   bytesReaded := 0;
@@ -111,16 +109,17 @@ begin
   //0 - означает закрытие зокета
   repeat
     bytesReaded := fprecv(FSock, @FReadBuffer[FReadBufferPosition],
-      sizeof(FReadBuffer)-FReadBufferPosition, 0);
+      sizeof(FReadBuffer) - FReadBufferPosition, 0);
     if (bytesReaded <> -1) then FReadBufferPosition += bytesReaded;
-    if (bytesReaded = 0) then FSocketClosed := true;
-  until not (bytesReaded = -1) or (FReadBufferPosition < sizeof(FReadBuffer))
-    or (bytesReaded = 0);
+    if (bytesReaded = 0) then FSocketClosed := True;
+  until not (bytesReaded = -1) or (FReadBufferPosition < sizeof(FReadBuffer)) or
+    (bytesReaded = 0);
 
   //декодируем все сообщения в буфере
   startIndex := 0;
   repeat
-    socketMessage := TChatSocketMessage.Create(FReadBuffer[startIndex], FReadBufferPosition-1);
+    socketMessage := TChatSocketMessage.Create(FReadBuffer[startIndex],
+      FReadBufferPosition - 1);
     isMessage := socketMessage.Decoded or socketMessage.HashError;
     if (isMessage) then  //если сообщение расшифровано
     begin
@@ -134,9 +133,9 @@ begin
   until (isMessage);
 
   //стираем из буфера расшифрованнное сообщение, передвигаем оставшиеся данные к началу
-  for i := 0 to ((FReadBufferPosition-1) - startIndex) do
+  for i := 0 to ((FReadBufferPosition - 1) - startIndex) do
   begin
-    FReadBuffer[i] := FReadBuffer[startIndex+i+1];
+    FReadBuffer[i] := FReadBuffer[startIndex + i + 1];
   end;
   FReadBufferPosition := 0;
 
@@ -155,7 +154,7 @@ end;
 
 procedure TChatSocket.OnClosed;
 begin
-  FSocketClosed := true;
+  FSocketClosed := True;
   if FOnChatSocketClosed <> nil then FOnChatSocketClosed;
 end;
 

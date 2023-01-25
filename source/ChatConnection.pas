@@ -28,30 +28,36 @@ type
     FOutputSocket: TChatSocket;
 
   public
-    constructor Create(aContact: TChatContact; aUserKey: TLbRSA;
-      aPollList: TPollList);
+    constructor Create(aContact: TChatContact; aSocksPort: word;
+      aUserKey: TLbRSA; aPollList: TPollList);
     destructor Destroy; override;
   private
     procedure OnMessage(aChatSocketMessage: TChatSocketMessage);
     procedure OnClosed;
-    procedure OnConnected;
+    procedure OnConnected(aSocket:longint);
   end;
 
 implementation
 
 { TChatConnection }
 
-constructor TChatConnection.Create(aContact: TChatContact; aUserKey: TLbRSA;
-  aPollList: TPollList);
+constructor TChatConnection.Create(aContact: TChatContact; aSocksPort: word;
+  aUserKey: TLbRSA; aPollList: TPollList);
 begin
   FContact := aContact;
   FPollList := aPollList;
-  FLinkConnector := TLinkConnector.Create(FContact.Link, FContact.Key,
-    aUserKey, FPollList, @OnConnected);
+  FLinkConnector := TLinkConnector.Create(FContact.Link, aSocksPort, @OnConnected);
 end;
 
 destructor TChatConnection.Destroy;
 begin
+  if assigned(FLinkConnector) and not FLinkConnector.Finished then
+  begin
+    FLinkConnector.Terminate;
+    while not FLinkConnector.Finished do Sleep(1);
+  end;
+  if assigned(FLinkConnector) then FreeAndNil(FLinkConnector);
+
   inherited Destroy;
 end;
 
@@ -65,9 +71,9 @@ begin
 
 end;
 
-procedure TChatConnection.OnConnected;
+procedure TChatConnection.OnConnected(aSocket:longint);
 begin
-  // FLinkConnector вызовет это место если соединение полностью установлено
+  // FLinkConnector вызовет это место если соединение socks5 установлено
 end;
 
 end.

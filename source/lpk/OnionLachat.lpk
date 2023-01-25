@@ -68,6 +68,10 @@
         <Filename Value="../LinkConnector.pas"/>
         <UnitName Value="LinkConnector"/>
       </Item>
+      <Item>
+        <Filename Value="../ChatConst.pas"/>
+        <UnitName Value="ChatConst"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

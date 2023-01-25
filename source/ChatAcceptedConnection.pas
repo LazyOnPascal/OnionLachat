@@ -47,7 +47,6 @@ uses
 constructor TChatAcceptedConnection.Create(aSock: longint; aTimeOut: longint);
 begin
   FChatSocket := TChatSocket.Create(aSock,@self.OnMessage,@self.OnClosed);
-  FChatSocket.setOnInputMessage(@OnMessage);
   FStartTime := Now;
   FLastAction := Now;
   FTimeOut := aTimeOut div 1000;

@@ -11,7 +11,7 @@ uses
   ChatUser, ChatLog, ChatServer, ChatConnectionList, ChatConnection, 
   ChatContact, ChatContactList, ChatAcceptedConnectionList, 
   ChatAcceptedConnection, ChatSocketProcedures, ChatTypes, ChatSocket, 
-  ChatSocketMessage, LinkConnector, LazarusPackageIntf;
+  ChatSocketMessage, LinkConnector, ChatConst, LazarusPackageIntf;
 
 implementation
 
