@@ -1,2 +1,0 @@
-GEOIP         RCDATA "../resource/geoip/geoip"
-GEOIP6         RCDATA "../resource/geoip/geoip6"

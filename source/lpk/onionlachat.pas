@@ -8,9 +8,9 @@ unit OnionLachat;
 interface
 
 uses
-  TorLauncher, ChatProtocol, Bridges, ChatConnection, CommonFunctions, 
-  ChatFunctions, ChatMessage, ChatUser, ChatMessageList, ChatContactList, 
-  ChatContact, LazarusPackageIntf;
+  ChatProtocol, Bridges, ChatConnection, CommonFunctions, ChatFunctions, 
+  ChatMessage, ChatUser, ChatMessageList, ChatContactList, ChatContact, 
+  LazarusPackageIntf;
 
 implementation
 

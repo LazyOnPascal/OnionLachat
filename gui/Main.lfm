@@ -1,7 +1,7 @@
 object fChat: TfChat
-  Left = 917
+  Left = -16
   Height = 1211
-  Top = 72
+  Top = 178
   Width = 1534
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True

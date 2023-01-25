@@ -13,10 +13,6 @@
     <Version Release="1"/>
     <Files>
       <Item>
-        <Filename Value="../TorLauncher.pas"/>
-        <UnitName Value="TorLauncher"/>
-      </Item>
-      <Item>
         <Filename Value="../ChatProtocol.pas"/>
         <UnitName Value="ChatProtocol"/>
       </Item>
@@ -58,6 +54,9 @@
       </Item>
     </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="FPCTorLauncher"/>
+      </Item>
       <Item>
         <PackageName Value="fpcrsalib"/>
       </Item>
